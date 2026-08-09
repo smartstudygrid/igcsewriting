@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE ESL Grammar & Sentence Variety Masterclass</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Target Print Styling for Tutor Submission */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 11pt;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .print-card {
+                border: 1px solid #cbd5e1 !important;
+                box-shadow: none !important;
+                background: white !important;
+                break-inside: avoid;
+            }
+            textarea {
+                border: 1px solid #94a3b8 !important;
+                background: #fafafa !important;
+                resize: none;
+            }
+        }
+
+        .print-only {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="no-print bg-slate-900 text-white sticky top-0 z-50 border-b border-slate-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg text-lg">
+                    ESL
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-lg leading-tight flex items-center gap-2">
+                        IGCSE ESL Grammar & Sentence Masterclass
+                        <span class="text-xs font-normal bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 px-2 py-0.5 rounded-full">Grade 10</span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Contextual Tenses, Conditionals & Sentence Variety for Writing Tasks</p>
+                    <p class="text-[11px] text-indigo-300/90 mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                        <span><i class="fa-solid fa-user-gear text-indigo-400"></i> Created by <strong class="text-white font-medium">Amanullah Khan</strong></span>
+                        <span class="text-slate-600">•</span>
+                        <a href="tel:+966568959394" class="hover:text-amber-300 transition-colors flex items-center gap-1"><i class="fa-solid fa-phone text-[10px]"></i> +966568959394</a>
+                        <span class="text-slate-600">•</span>
+                        <a href="https://www.smartstudygrid.com" target="_blank" class="hover:text-amber-300 transition-colors flex items-center gap-1"><i class="fa-solid fa-globe text-[10px]"></i> www.smartstudygrid.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timer & Action Bar -->
+            <div class="flex items-center gap-4 ml-auto">
+                <!-- Session Timer -->
+                <div class="bg-slate-800/80 border border-slate-700/60 rounded-lg px-3 py-1.5 flex items-center gap-3">
+                    <i class="fa-regular fa-clock text-indigo-400 text-sm"></i>
+                    <div>
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-medium leading-none">Session Time</div>
+                        <div id="session-timer" class="font-mono text-sm font-bold text-amber-400">90:00</div>
+                    </div>
+                    <button id="timer-toggle-btn" onclick="toggleTimer()" class="text-slate-400 hover:text-white text-xs p-1" title="Pause/Play Timer">
+                        <i class="fa-solid fa-pause"></i>
+                    </button>
+                </div>
+
+                <!-- Print / Submission Quick Button -->
+                <button onclick="switchToTab('tab-submission'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Submit & Export</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-slate-800 h-1.5">
+            <div id="overall-progress" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Interactive Navigation Tabs -->
+        <div class="no-print bg-white rounded-xl shadow-sm border border-slate-200/80 p-1.5 flex flex-wrap gap-1">
+            <button onclick="switchToTab('tab-blueprint')" id="btn-tab-blueprint" class="tab-btn flex-1 min-w-[140px] py-2.5 px-3 rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-indigo-600 text-white shadow-sm">
+                <i class="fa-solid fa-book-open"></i>
+                <span>1. Grammar Toolkit</span>
+            </button>
+            <button onclick="switchToTab('tab-drills')" id="btn-tab-drills" class="tab-btn flex-1 min-w-[140px] py-2.5 px-3 rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50">
+                <i class="fa-solid fa-bolt"></i>
+                <span>2. Situation Drills</span>
+            </button>
+            <button onclick="switchToTab('tab-writing')" id="btn-tab-writing" class="tab-btn flex-1 min-w-[140px] py-2.5 px-3 rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50">
+                <i class="fa-solid fa-pen-nib"></i>
+                <span>3. Genre Writing</span>
+            </button>
+            <button onclick="switchToTab('tab-submission')" id="btn-tab-submission" class="tab-btn flex-1 min-w-[140px] py-2.5 px-3 rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all text-slate-600 hover:text-indigo-600 hover:bg-slate-50">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>4. Worksheet Export</span>
+            </button>
+        </div>
+
+        <!-- ================= TAB 1: GRAMMAR & GENRE BLUEPRINT ================= -->
+        <section id="tab-blueprint" class="tab-content space-y-6">
+            
+            <!-- Welcome Header Card -->
+            <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold mb-3 border border-indigo-500/30">
+                        <i class="fa-solid fa-award text-amber-300"></i> IGCSE ESL Assessment: 15 Marks Per Writing Task (9 Language • 6 Content)
+                    </div>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-white mb-2">Mastering High-Mark Sentence Variety</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        In IGCSE ESL writing tasks (Email, Article, Report, Review), examiners award up to <strong class="text-amber-300 font-semibold">15 marks</strong> per task: <strong class="text-white underline decoration-indigo-400">9 marks for Language</strong> (range, accuracy, sentence variety, complex structures) and <strong class="text-white underline decoration-indigo-400">6 marks for Content</strong> (fulfilling all prompt points, register, tone, audience).
+                    </p>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs">
+                        <span class="bg-indigo-950/80 border border-indigo-400/30 px-3 py-1.5 rounded-lg text-indigo-200">
+                            <strong class="text-amber-300">Language (9 Marks):</strong> Tenses, Conditionals, Connectives, Clause Variety
+                        </span>
+                        <span class="bg-indigo-950/80 border border-indigo-400/30 px-3 py-1.5 rounded-lg text-indigo-200">
+                            <strong class="text-amber-300">Content (6 Marks):</strong> Task Completion, Relevance, Register & Format
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentence Structures Reference Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Simple & Compound Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3 hover:border-indigo-300 transition-all">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</span>
+                            Simple & Compound Sentences
+                        </h3>
+                        <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 font-medium rounded">Foundation</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Use simple sentences for strong impact and compound sentences to join two equal main ideas.</p>
+                    
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 space-y-2 text-xs">
+                        <div>
+                            <strong class="text-slate-800">Simple Sentence:</strong>
+                            <p class="text-slate-600 italic">"The school organized an annual career fair."</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800">Compound (FANBOYS):</strong>
+                            <p class="text-slate-600 italic">"The event was well-planned, <span class="font-bold text-indigo-600">yet</span> many students arrived late."</p>
+                            <span class="text-[11px] text-slate-400">Connectives: For, And, Nor, But, Or, Yet, So</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complex & Compound-Complex Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3 hover:border-indigo-300 transition-all">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">2</span>
+                            Complex & Compound-Complex
+                        </h3>
+                        <span class="text-xs px-2 py-0.5 bg-purple-50 text-purple-700 font-medium rounded">Top Band Mark</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Shows relationships like cause, contrast, time, and condition with subordinating clauses.</p>
+                    
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 space-y-2 text-xs">
+                        <div>
+                            <strong class="text-slate-800">Complex (Subordinator):</strong>
+                            <p class="text-slate-600 italic">"<span class="font-bold text-purple-600">Although</span> the rain was heavy, we continued our tour."</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800">Compound-Complex:</strong>
+                            <p class="text-slate-600 italic">"<span class="font-bold text-purple-600">Because</span> the hall was overcrowded, many parents left early, <span class="font-bold text-indigo-600">and</span> the speakers had to shorten their presentations."</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Conditionals Cheat Sheet for IGCSE -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-code-branch text-indigo-600"></i>
+                        The Conditionals Matrix for Writing Tasks
+                    </h3>
+                    <span class="text-xs text-slate-500">Essential for Opinions & Recommendations</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <!-- Zero Conditional -->
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-slate-800">Zero Conditional</span>
+                            <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">Facts</span>
+                        </div>
+                        <p class="text-[11px] font-mono text-indigo-700">If + Present, Present</p>
+                        <p class="text-xs text-slate-600 italic">"If schools promote recycling, waste decreases."</p>
+                        <span class="inline-block text-[10px] text-slate-500 font-medium">Best for: Reports / Articles</span>
+                    </div>
+
+                    <!-- 1st Conditional -->
+                    <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-emerald-900">1st Conditional</span>
+                            <span class="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded">Real Future</span>
+                        </div>
+                        <p class="text-[11px] font-mono text-emerald-700">If + Present, Will + Verb</p>
+                        <p class="text-xs text-slate-600 italic">"If you visit me next month, we will explore the coast."</p>
+                        <span class="inline-block text-[10px] text-emerald-700 font-medium">Best for: Emails / Suggestions</span>
+                    </div>
+
+                    <!-- 2nd Conditional -->
+                    <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-amber-900">2nd Conditional</span>
+                            <span class="text-[10px] bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded">Hypothetical</span>
+                        </div>
+                        <p class="text-[11px] font-mono text-amber-700">If + Past Simple, Would + Verb</p>
+                        <p class="text-xs text-slate-600 italic">"If the library had more computers, students would study here more."</p>
+                        <span class="inline-block text-[10px] text-amber-700 font-medium">Best for: Reports / Articles</span>
+                    </div>
+
+                    <!-- 3rd Conditional -->
+                    <div class="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200/80 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-xs text-rose-900">3rd Conditional</span>
+                            <span class="text-[10px] bg-rose-200 text-rose-800 px-1.5 py-0.5 rounded">Past Regret</span>
+                        </div>
+                        <p class="text-[11px] font-mono text-rose-700">If + Past Perfect, Would Have + V3</p>
+                        <p class="text-xs text-slate-600 italic">"If the organizers had provided maps, visitors would not have lost their way."</p>
+                        <span class="inline-block text-[10px] text-rose-700 font-medium">Best for: Reviews / Reports</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writing Genres Overview Table -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
+                <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-indigo-600"></i>
+                    The 4 IGCSE Genres & Target Grammar Checklist
+                </h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                                <th class="p-3">Genre</th>
+                                <th class="p-3">Tone & Style</th>
+                                <th class="p-3">Key Target Tenses</th>
+                                <th class="p-3">Signature Sentence Structures</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-600">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-indigo-700 flex items-center gap-1.5">
+                                    <i class="fa-regular fa-envelope"></i> Informal Email
+                                </td>
+                                <td class="p-3">Friendly, lively, conversational</td>
+                                <td class="p-3">Present Continuous, Past Simple, Present Perfect</td>
+                                <td class="p-3">2nd Conditionals (invitations), Informal Relative Clauses ("the guy who...")</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-purple-700 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-newspaper"></i> Article
+                                </td>
+                                <td class="p-3">Engaging, expressive, persuasive</td>
+                                <td class="p-3">Present Simple, Present Continuous</td>
+                                <td class="p-3">Participle Clauses ("Having spent..."), Rhetorical Questions, 1st Conditionals</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-blue-700 flex items-center gap-1.5">
+                                    <i class="fa-regular fa-file-lines"></i> Formal Report
+                                </td>
+                                <td class="p-3">Objective, factual, professional</td>
+                                <td class="p-3">Past Simple (findings), Present Simple (facts)</td>
+                                <td class="p-3">Passive Voice ("It was observed that..."), Subordinate clause of purpose ("In order to...")</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-amber-700 flex items-center gap-1.5">
+                                    <i class="fa-regular fa-star"></i> Review
+                                </td>
+                                <td class="p-3">Evaluative, vivid, balanced opinion</td>
+                                <td class="p-3">Past Simple, Past Perfect</td>
+                                <td class="p-3">3rd Conditional (evaluative regret), Relative Clauses ("which was located...")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Action Button to Next Section -->
+            <div class="flex justify-end pt-2">
+                <button onclick="switchToTab('tab-drills'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm px-6 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <span>Proceed to 2. Guided Situation Drills</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: GUIDED SITUATION DRILLS ================= -->
+        <section id="tab-drills" class="tab-content hidden space-y-6">
+            
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <div>
+                        <h2 class="font-heading font-bold text-xl text-slate-800">Section 2: Situation & Word Bank Drills</h2>
+                        <p class="text-xs text-slate-500">Construct sentences matching the exact scenario, using the word bank and required grammar constraints.</p>
+                    </div>
+                    <span class="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1 rounded-full font-medium">
+                        Target Time: 30 Mins • 8 Tasks
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- DRILL 1: INFORMAL EMAIL (Past Simple & 2nd Conditional) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                            <i class="fa-regular fa-envelope"></i> Informal Email • Drill 1
+                        </span>
+                        <span class="text-[11px] text-slate-400">Past Simple + 2nd Conditional</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Missed Meetup & Invitation</h4>
+                        <p class="text-xs text-slate-600">Apologize to your friend for missing their birthday party last week, and invite them to visit you next weekend instead.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">unavoidable</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">unfortunate</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">reschedule</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">weekend</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">delighted</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Complex sentence using <span class="font-mono text-indigo-600 font-bold">because</span> or <span class="font-mono text-indigo-600 font-bold">due to</span></li>
+                            <li>1x 2nd Conditional sentence (<span class="font-mono text-purple-600">If + past simple, would + verb</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-1-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-1')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-1" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"I was so sorry that I missed your birthday party due to an <strong class="underline">unavoidable</strong> family emergency. If you came over to my house next <strong class="underline">weekend</strong> to <strong class="underline">reschedule</strong>, I would be absolutely <strong class="underline">delighted</strong> to make it up to you!"</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 2: INFORMAL EMAIL (Relative Clause & 1st Conditional) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                            <i class="fa-regular fa-envelope"></i> Informal Email • Drill 2
+                        </span>
+                        <span class="text-[11px] text-slate-400">Relative Clause + 1st Conditional</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Recommending a New Hobby</h4>
+                        <p class="text-xs text-slate-600">Write to a classmate suggesting they join the new school photography club with you.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">passion</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">instructor</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">equipment</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">exhibition</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">improve</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Relative Clause using <span class="font-mono text-indigo-600 font-bold">who</span> or <span class="font-mono text-indigo-600 font-bold">which</span></li>
+                            <li>1x 1st Conditional (<span class="font-mono text-purple-600">If + present simple, will + verb</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-2-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-2')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-2" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"Our new photography <strong class="underline">instructor</strong>, <span class="font-bold">who</span> has a real <strong class="underline">passion</strong> for teaching, provides amazing <strong class="underline">equipment</strong>. If you join the club with me, your camera skills <span class="font-bold">will improve</span> rapidly before the end-of-year <strong class="underline">exhibition</strong>."</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 3: ARTICLE (Participle Clause & Zero Conditional) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
+                            <i class="fa-solid fa-newspaper"></i> School Article • Drill 3
+                        </span>
+                        <span class="text-[11px] text-slate-400">Participle Clause + Zero Conditional</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Smartphone Usage in School</h4>
+                        <p class="text-xs text-slate-600">Write an opening for a school magazine article discussing how continuous notifications disrupt teenagers' focus during study time.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">distraction</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">concentration</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">constantly</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">academic</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">detrimental</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Participle Clause sentence starting with an <span class="font-mono text-indigo-600 font-bold">-ing verb</span> (e.g., <em>"Facing endless..."</em>)</li>
+                            <li>1x Zero Conditional (<span class="font-mono text-purple-600">If + present simple, present simple</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-3-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-3')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-3" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"<span class="font-bold">Facing</span> <strong class="underline">constantly</strong> buzzing notifications on their phones, students frequently suffer from a loss of deep <strong class="underline">concentration</strong>. If teenagers allow digital <strong class="underline">distraction</strong> during revision, their <strong class="underline">academic</strong> performance <span class="font-bold">suffers</span> greatly."</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 4: ARTICLE (Compound-Complex & Modal Recommendation) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
+                            <i class="fa-solid fa-newspaper"></i> School Article • Drill 4
+                        </span>
+                        <span class="text-[11px] text-slate-400">Compound-Complex Sentence</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Promoting Green Campus Initiatives</h4>
+                        <p class="text-xs text-slate-600">Write a persuasive conclusion for an article urging your school to eliminate single-use plastics from the canteen.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">eliminate</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">sustainability</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">initiative</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">canteen</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">inspire</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Compound-Complex sentence using <span class="font-mono text-indigo-600 font-bold">although</span> + coordinating conjunction (<span class="font-mono text-indigo-600 font-bold">and / but</span>)</li>
+                            <li>Modal verb of recommendation (<span class="font-mono text-purple-600">should / ought to</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-4-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-4')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-4" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"<span class="font-bold">Although</span> replacing plastic containers in the <strong class="underline">canteen</strong> may require an initial budget, this eco-friendly <strong class="underline">initiative</strong> will promote long-term <strong class="underline">sustainability</strong>, <span class="font-bold">and</span> our student council <span class="font-bold">should</span> take immediate action to <strong class="underline">inspire</strong> other schools."</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 5: REPORT (Passive Voice & Suggestion Clause) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                            <i class="fa-regular fa-file-lines"></i> Formal Report • Drill 5
+                        </span>
+                        <span class="text-[11px] text-slate-400">Passive Voice + In Order To</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: School Library Upgrade</h4>
+                        <p class="text-xs text-slate-600">Report on the findings regarding outdated books and lack of silent study rooms in the library.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">inspected</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">outdated</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">resources</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">insufficient</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">allocated</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Formal Passive Voice sentence (<span class="font-mono text-indigo-600">"It was observed that..." / "Funds were..."</span>)</li>
+                            <li>1x Subordinate clause of purpose using <span class="font-mono text-purple-600">in order to</span> or <span class="font-mono text-purple-600">so that</span></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-5-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-5')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-5" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"During the inspection, <span class="font-bold">it was noted that</span> several reference <strong class="underline">resources</strong> were highly <strong class="underline">outdated</strong>. <span class="font-bold">In order to</span> resolve this <strong class="underline">insufficient</strong> provision, additional funds <span class="font-bold">must be allocated</span> for digital upgrading."</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 6: REPORT (Formal Complex & 2nd Conditional Suggestion) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                            <i class="fa-regular fa-file-lines"></i> Formal Report • Drill 6
+                        </span>
+                        <span class="text-[11px] text-slate-400">Formal Complex + 2nd Conditional</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Sports Facilities Assessment</h4>
+                        <p class="text-xs text-slate-600">Provide a recommendation for improving the school's sports changing rooms and football pitch.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">renovation</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">participation</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">inadequate</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">substantially</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">recommend</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Complex sentence starting with <span class="font-mono text-indigo-600 font-bold">Whereas</span> or <span class="font-mono text-indigo-600 font-bold">While</span></li>
+                            <li>1x Formal 2nd Conditional recommendation (<span class="font-mono text-purple-600">If the management were to... student participation would...</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-6-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-6')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-6" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"<span class="font-bold">While</span> current outdoor pitches are well-maintained, indoor changing facilities remain strictly <strong class="underline">inadequate</strong>. If school authorities <span class="font-bold">were to authorize</span> an immediate <strong class="underline">renovation</strong>, student <strong class="underline">participation</strong> in extra-curricular sports <span class="font-bold">would increase</span> <strong class="underline">substantially</strong>."</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 7: REVIEW (3rd Conditional & Relative Clause) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
+                            <i class="fa-regular fa-star"></i> Restaurant Review • Drill 7
+                        </span>
+                        <span class="text-[11px] text-slate-400">3rd Conditional + Relative Clause</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Evaluating Service & Atmosphere</h4>
+                        <p class="text-xs text-slate-600">Review a recently opened Italian cafe where the food was great but service was painfully slow.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">atmosphere</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">exquisite</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">sluggish</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">disappointing</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">flawless</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Non-defining Relative Clause using <span class="font-mono text-indigo-600 font-bold">, which ... ,</span></li>
+                            <li>1x 3rd Conditional showing evaluative regret (<span class="font-mono text-purple-600">If + past perfect, would have + V3</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-7-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-7')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-7" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"The homemade pasta, <span class="font-bold">which was served with fresh herbs</span>, tasted absolutely <strong class="underline">exquisite</strong> in a vibrant <strong class="underline">atmosphere</strong>. However, if the <strong class="underline">sluggish</strong> staff <span class="font-bold">had been faster</span>, our overall dining experience <span class="font-bold">would have been flawless</span>."</p>
+                    </div>
+                </div>
+
+                <!-- DRILL 8: REVIEW (Past Perfect & Contrast Connective) -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
+                            <i class="fa-regular fa-star"></i> Event Review • Drill 8
+                        </span>
+                        <span class="text-[11px] text-slate-400">Past Perfect + Despite</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: School Drama Festival</h4>
+                        <p class="text-xs text-slate-600">Review a drama performance held at your school last week, highlighting the actors' effort despite technical glitches.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
+                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">anticipated</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">technical</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">glitch</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">performance</span>
+                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">captivate</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
+                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
+                            <li>1x Sentence using <span class="font-mono text-indigo-600 font-bold">Past Perfect</span> (<span class="font-mono text-indigo-600">had + V3</span>) to show prior preparation</li>
+                            <li>1x Sentence starting with <span class="font-mono text-purple-600">Despite + Noun/-ing</span></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
+                        <textarea id="drill-8-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                    </div>
+
+                    <div class="flex justify-between items-center pt-1">
+                        <button onclick="toggleModelAnswer('model-8')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                        </button>
+                    </div>
+
+                    <div id="model-8" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
+                        <p class="italic">"The drama club <span class="font-bold">had rehearsed</span> for months for this eagerly <strong class="underline">anticipated</strong> play. <span class="font-bold">Despite minor technical glitches</span> with the sound equipment, the lead actors managed to <strong class="underline">captivate</strong> the audience with an outstanding <strong class="underline">performance</strong>."</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="flex justify-between items-center pt-4 border-t border-slate-200">
+                <button onclick="switchToTab('tab-blueprint'); window.scrollTo(0,0);" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-all">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Back to Grammar Blueprint
+                </button>
+                <button onclick="switchToTab('tab-writing'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <span>Proceed to 3. Full Writing Prompts</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: GENRE WRITING ================= -->
+        <section id="tab-writing" class="tab-content hidden space-y-6">
+            
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2">
+                <div class="flex justify-between items-center flex-wrap gap-2">
+                    <div>
+                        <h2 class="font-heading font-bold text-xl text-slate-800">Section 3: IGCSE Genre Writing Application</h2>
+                        <p class="text-xs text-slate-500">Apply your grammar toolkit to write targeted paragraphs (approx. 70-100 words each) for authentic IGCSE exam style tasks.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-award text-amber-500"></i> Task Mark: 15 (9 Language / 6 Content)
+                        </span>
+                        <span class="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1 rounded-full font-medium">
+                            Target Time: 35 Mins
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writing Prompt Cards Grid -->
+            <div class="space-y-6">
+
+                <!-- WRITING TASK 1: INFORMAL EMAIL -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm font-bold">1</span>
+                            <h3 class="font-heading font-bold text-slate-800 text-base">Informal Email Task: Planning a Trip</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">Informal Register</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1 text-xs">
+                            <label class="font-medium text-slate-700">Your Email Paragraph:</label>
+                            <span id="word-count-email" class="text-slate-400 font-mono">0 words</span>
+                        </div>
+                        <textarea id="write-email-text" oninput="updateWordCount('write-email-text', 'word-count-email'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Dear Sam, I am writing to let you know that..."></textarea>
+                    </div>
+                </div>
+
+                <!-- WRITING TASK 2: ARTICLE -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold">2</span>
+                            <h3 class="font-heading font-bold text-slate-800 text-base">School Magazine Article Task: Healthy Lifestyles</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-purple-50 text-purple-700 rounded-full border border-purple-100">Engaging Register</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1 text-xs">
+                            <label class="font-medium text-slate-700">Your Article Paragraph:</label>
+                            <span id="word-count-article" class="text-slate-400 font-mono">0 words</span>
+                        </div>
+                        <textarea id="write-article-text" oninput="updateWordCount('write-article-text', 'word-count-article'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Balancing schoolwork and wellbeing is essential..."></textarea>
+                    </div>
+                </div>
+
+                <!-- WRITING TASK 3: FORMAL REPORT -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-bold">3</span>
+                            <h3 class="font-heading font-bold text-slate-800 text-base">Formal Report Task: School Trip Evaluation</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full border border-blue-100">Formal Register</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1 text-xs">
+                            <label class="font-medium text-slate-700">Your Report Paragraph:</label>
+                            <span id="word-count-report" class="text-slate-400 font-mono">0 words</span>
+                        </div>
+                        <textarea id="write-report-text" oninput="updateWordCount('write-report-text', 'word-count-report'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="The educational trip to the museum was conducted on..."></textarea>
+                    </div>
+                </div>
+
+                <!-- WRITING TASK 4: REVIEW -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-sm font-bold">4</span>
+                            <h3 class="font-heading font-bold text-slate-800 text-base">Review Task: Local Cinema or Book</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-100">Evaluative Register</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1 text-xs">
+                            <label class="font-medium text-slate-700">Your Review Paragraph:</label>
+                            <span id="word-count-review" class="text-slate-400 font-mono">0 words</span>
+                        </div>
+                        <textarea id="write-review-text" oninput="updateWordCount('write-review-text', 'word-count-review'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="The newly opened cinema complex, which features state-of-the-art screen technology..."></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation Bar -->
+            <div class="flex justify-between items-center pt-4 border-t border-slate-200">
+                <button onclick="switchToTab('tab-drills'); window.scrollTo(0,0);" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-all">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Back to Drills
+                </button>
+                <button onclick="switchToTab('tab-submission'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <span>Go to Worksheet Export</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: SUBMISSION & PDF EXPORT ================= -->
+        <section id="tab-submission" class="tab-content hidden space-y-6">
+            
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+                
+                <div class="flex justify-between items-center flex-wrap gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h2 class="font-heading font-bold text-xl text-slate-800">Worksheet Review & Tutor Submission</h2>
+                        <p class="text-xs text-slate-500">Fill in your student details, review your completed exercises, and export your clean document for your tutor.</p>
+                    </div>
+                    
+                    <button onclick="triggerPrintProcess()" class="no-print bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-print text-base"></i>
+                        <span>Print / Save as PDF for Tutor</span>
+                    </button>
+                </div>
+
+                <!-- Student Details Input Form (Interactive) -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 space-y-4">
+                    <h3 class="font-heading font-bold text-sm text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-user-pen text-indigo-600"></i> Student & Session Meta Data
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Student Full Name:</label>
+                            <input type="text" id="student-name" oninput="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Sarah Mansour">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Tutor Name:</label>
+                            <input type="text" id="tutor-name" oninput="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Amanullah Khan">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Session Date:</label>
+                            <input type="date" id="session-date" onchange="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Self-Assessment Confidence Rating:</label>
+                            <select id="self-rating" onchange="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                <option value="⭐⭐⭐⭐⭐ (5/5) - Highly Confident">⭐⭐⭐⭐⭐ (5/5) - Mastered all structures</option>
+                                <option value="⭐⭐⭐⭐ (4/5) - Confident">⭐⭐⭐⭐ (4/5) - Good control over conditionals & tenses</option>
+                                <option value="⭐⭐⭐ (3/3) - Moderate">⭐⭐⭐ (3/5) - Need slight review on 3rd conditional/participles</option>
+                                <option value="⭐⭐ (2/5) - Needs Practice">⭐⭐ (2/5) - Struggled with complex sentence variety</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Student Reflection / Questions for Tutor:</label>
+                            <input type="text" id="student-notes" oninput="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. I felt confident with emails, but need more help on formal report passives.">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Printable Summary Header (Appears in Print View) -->
+                <div class="print-only border-2 border-slate-800 p-4 rounded-xl space-y-2 mb-6">
+                    <div class="flex justify-between items-start border-b border-slate-300 pb-2">
+                        <div>
+                            <h1 class="text-xl font-bold">IGCSE ESL Sentence Masterclass - Student Submission Worksheet</h1>
+                            <p class="text-xs text-slate-600 font-medium">Created by Amanullah Khan • Tel: +966568959394 • www.smartstudygrid.com</p>
+                        </div>
+                        <span class="text-sm font-semibold bg-slate-100 px-2.5 py-1 rounded border border-slate-300">Grade 10 ESL</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <p><strong>Student Name:</strong> <span id="print-student-name">Sarah Mansour</span></p>
+                        <p><strong>Tutor Name:</strong> <span id="print-tutor-name">Amanullah Khan</span></p>
+                        <p><strong>Date:</strong> <span id="print-date">August 2026</span></p>
+                        <p><strong>Confidence Rating:</strong> <span id="print-rating">5/5</span></p>
+                    </div>
+                    <p class="text-xs"><strong>Student Notes for Tutor:</strong> <span id="print-notes">None</span></p>
+                </div>
+
+                <!-- Tutor Assessment Grid (For Print/PDF Grading) -->
+                <div class="print-only border border-slate-400 p-4 rounded-xl space-y-2 mb-6 bg-slate-50">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-1">
+                        Tutor Assessment & Scorecard (15 Marks Per Writing Task)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-[11px] border-collapse border border-slate-300 text-center">
+                            <thead>
+                                <tr class="bg-slate-200 font-bold text-slate-800">
+                                    <th class="border border-slate-300 p-1.5 text-left">Writing Genre Task</th>
+                                    <th class="border border-slate-300 p-1.5 w-24">Language (/9)</th>
+                                    <th class="border border-slate-300 p-1.5 w-24">Content (/6)</th>
+                                    <th class="border border-slate-300 p-1.5 w-24">Total (/15)</th>
+                                    <th class="border border-slate-300 p-1.5 text-left">Tutor Feedback / Focus Areas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">1. Informal Email</td>
+                                    <td class="border border-slate-300 p-1.5">/9</td>
+                                    <td class="border border-slate-300 p-1.5">/6</td>
+                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
+                                    <td class="border border-slate-300 p-1.5"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">2. School Article</td>
+                                    <td class="border border-slate-300 p-1.5">/9</td>
+                                    <td class="border border-slate-300 p-1.5">/6</td>
+                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
+                                    <td class="border border-slate-300 p-1.5"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">3. Formal Report</td>
+                                    <td class="border border-slate-300 p-1.5">/9</td>
+                                    <td class="border border-slate-300 p-1.5">/6</td>
+                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
+                                    <td class="border border-slate-300 p-1.5"></td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">4. Review Task</td>
+                                    <td class="border border-slate-300 p-1.5">/9</td>
+                                    <td class="border border-slate-300 p-1.5">/6</td>
+                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
+                                    <td class="border border-slate-300 p-1.5"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Live Worksheet Summary Preview -->
+                <div class="space-y-4">
+                    <h3 class="font-heading font-bold text-slate-800 text-sm flex items-center justify-between">
+                        <span>Worksheet Response Review</span>
+                        <span id="completion-badge" class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-normal">Progress: 0%</span>
+                    </h3>
+
+                    <div id="submission-preview-list" class="space-y-4 text-xs">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer with Author Credits -->
+    <footer class="no-print bg-slate-900 border-t border-slate-800 text-slate-400 py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-md bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">AK</div>
+                <span>Created by <strong class="text-white">Amanullah Khan</strong></span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-4 text-xs">
+                <a href="tel:+966568959394" class="hover:text-indigo-300 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-phone text-indigo-400"></i> +966568959394
+                </a>
+                <span class="text-slate-700">•</span>
+                <a href="https://www.smartstudygrid.com" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-300 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-indigo-400"></i> www.smartstudygrid.com
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Session State & Timer Logic
+        let timerSeconds = 90 * 60; // 90 minutes
+        let timerInterval = null;
+        let isTimerRunning = true;
+
+        window.onload = function() {
+            // Initialize Date Field to Today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('session-date').value = today;
+
+            // Start Session Countdown Timer
+            startTimer();
+            
+            // Initial render of preview
+            renderSubmissionPreview();
+            updateOverallProgress();
+        };
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                if (isTimerRunning && timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function toggleTimer() {
+            isTimerRunning = !isTimerRunning;
+            const btn = document.getElementById('timer-toggle-btn');
+            btn.innerHTML = isTimerRunning ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('session-timer').textContent = display;
+        }
+
+        // Navigation Tab Switcher
+        function switchToTab(tabId) {
+            // Hide all tab content
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Reset tab button states
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-slate-600', 'hover:text-indigo-600', 'hover:bg-slate-50');
+            });
+
+            // Active button highlight
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'hover:text-indigo-600', 'hover:bg-slate-50');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+            }
+
+            if (tabId === 'tab-submission') {
+                renderSubmissionPreview();
+            }
+        }
+
+        // Toggle Model Answers in Drills
+        function toggleModelAnswer(elementId) {
+            const el = document.getElementById(elementId);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Live Word Counter
+        function updateWordCount(textareaId, displayId) {
+            const text = document.getElementById(textareaId).value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            document.getElementById(displayId).textContent = `${words} words`;
+        }
+
+        // Drill Progress Tracking
+        function updateDrillProgress() {
+            updateOverallProgress();
+        }
+
+        function updateWritingProgress() {
+            updateOverallProgress();
+        }
+
+        function updateOverallProgress() {
+            let totalItems = 12; // 8 drills + 4 writing tasks
+            let completedItems = 0;
+
+            for (let i = 1; i <= 8; i++) {
+                const val = document.getElementById(`drill-${i}-text`).value.trim();
+                if (val.length > 15) completedItems++;
+            }
+
+            const eText = document.getElementById('write-email-text').value.trim();
+            const aText = document.getElementById('write-article-text').value.trim();
+            const rText = document.getElementById('write-report-text').value.trim();
+            const revText = document.getElementById('write-review-text').value.trim();
+
+            if (eText.length > 20) completedItems++;
+            if (aText.length > 20) completedItems++;
+            if (rText.length > 20) completedItems++;
+            if (revText.length > 20) completedItems++;
+
+            const percentage = Math.round((completedItems / totalItems) * 100);
+            document.getElementById('overall-progress').style.width = percentage + '%';
+            
+            const badge = document.getElementById('completion-badge');
+            if (badge) {
+                badge.textContent = `Progress: ${percentage}% (${completedItems}/${totalItems} Done)`;
+            }
+        }
+
+        // Submission & Print Preview Generator
+        function renderSubmissionPreview() {
+            const container = document.getElementById('submission-preview-list');
+            container.innerHTML = '';
+
+            // Section 2: Drills
+            const drillHeader = document.createElement('div');
+            drillHeader.className = "font-bold text-slate-800 text-sm border-b border-slate-200 pb-1 mt-2";
+            drillHeader.innerHTML = "<i class='fa-solid fa-bolt text-indigo-600 mr-1'></i> Section 2: Situation Drills Responses";
+            container.appendChild(drillHeader);
+
+            const drillTitles = [
+                "Drill 1 (Email - Past Simple & 2nd Conditional)",
+                "Drill 2 (Email - Relative Clause & 1st Conditional)",
+                "Drill 3 (Article - Participle Clause & Zero Conditional)",
+                "Drill 4 (Article - Compound-Complex Sentence)",
+                "Drill 5 (Report - Passive Voice & Purpose Clause)",
+                "Drill 6 (Report - Formal Complex & 2nd Conditional)",
+                "Drill 7 (Review - 3rd Conditional & Relative Clause)",
+                "Drill 8 (Review - Past Perfect & Contrast)"
+            ];
+
+            for (let i = 1; i <= 8; i++) {
+                const val = document.getElementById(`drill-${i}-text`).value.trim() || "(No response written yet)";
+                
+                const card = document.createElement('div');
+                card.className = "p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1 print-card";
+                card.innerHTML = `
+                    <div class="font-semibold text-indigo-700 text-xs">${drillTitles[i-1]}</div>
+                    <p class="text-slate-700 italic">${escapeHtml(val)}</p>
+                `;
+                container.appendChild(card);
+            }
+
+            // Section 3: Writing Prompts
+            const writingHeader = document.createElement('div');
+            writingHeader.className = "font-bold text-slate-800 text-sm border-b border-slate-200 pb-1 mt-4";
+            writingHeader.innerHTML = "<i class='fa-solid fa-pen-nib text-indigo-600 mr-1'></i> Section 3: Genre Writing Tasks";
+            container.appendChild(writingHeader);
+
+            const writingTasks = [
+                { id: 'write-email-text', title: 'Task 1: Informal Email Paragraph' },
+                { id: 'write-article-text', title: 'Task 2: Magazine Article Paragraph' },
+                { id: 'write-report-text', title: 'Task 3: Formal Report Paragraph' },
+                { id: 'write-review-text', title: 'Task 4: Review Paragraph' }
+            ];
+
+            writingTasks.forEach(task => {
+                const val = document.getElementById(task.id).value.trim() || "(No response written yet)";
+                const card = document.createElement('div');
+                card.className = "p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1 print-card";
+                card.innerHTML = `
+                    <div class="font-semibold text-purple-700 text-xs">${task.title}</div>
+                    <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(val)}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updatePrintHeader() {
+            const sName = document.getElementById('student-name').value.trim() || "Sarah Mansour";
+            const tName = document.getElementById('tutor-name').value.trim() || "Not Specified";
+            const dDate = document.getElementById('session-date').value || "Today";
+            const rating = document.getElementById('self-rating').value;
+            const notes = document.getElementById('student-notes').value.trim() || "None provided.";
+
+            document.getElementById('print-student-name').textContent = sName;
+            document.getElementById('print-tutor-name').textContent = tName;
+            document.getElementById('print-date').textContent = dDate;
+            document.getElementById('print-rating').textContent = rating;
+            document.getElementById('print-notes').textContent = notes;
+        }
+
+        function triggerPrintProcess() {
+            updatePrintHeader();
+            renderSubmissionPreview();
+            window.print();
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
