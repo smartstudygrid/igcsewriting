@@ -448,7 +448,7 @@
             <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-wrap justify-between items-center gap-3">
                 <div>
                     <h2 class="font-heading font-bold text-xl text-slate-800">Section 2: Interactive Situation Drills</h2>
-                    <p class="text-xs text-slate-500">Unscramble the word blocks and assemble them into grammatically correct sentences matching the scenario.</p>
+                    <p class="text-xs text-slate-500">Unscramble the numbered word blocks or use your own original ideas to build sentences matching the scenario and target grammar rules.</p>
                 </div>
                 <div id="drill-counter-badge" class="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-full">
                     Completed: 0 / 8 Drills
@@ -492,13 +492,19 @@
                         <p id="drill-description" class="text-xs text-slate-700 leading-relaxed">
                             <!-- Populated JS -->
                         </p>
+
+                        <!-- Instruction Note -->
+                        <div class="text-[11px] text-indigo-900 bg-indigo-100/70 p-2.5 rounded-lg border border-indigo-200/60 flex items-start gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500 text-xs mt-0.5"></i>
+                            <span><strong>Instructions:</strong> Unscramble the numbered word groups below to assemble your sentences, <em>or</em> write your own sentences using original ideas while keeping the target grammar rules in mind.</span>
+                        </div>
                         
-                        <!-- Scrambled Words Block -->
-                        <div class="bg-white p-3 rounded-lg border border-indigo-100 text-xs space-y-2">
-                            <strong class="text-indigo-900 block font-semibold flex items-center gap-1.5">
-                                <i class="fa-solid fa-puzzle-piece text-amber-500"></i> Scrambled Word Chunks to Unscramble & Combine:
+                        <!-- Scrambled Words Block Grouped by Sentence -->
+                        <div class="bg-white p-3.5 rounded-lg border border-indigo-100 text-xs space-y-3">
+                            <strong class="text-indigo-900 block font-semibold flex items-center gap-1.5 border-b border-indigo-50 pb-2">
+                                <i class="fa-solid fa-shuffle text-amber-500"></i> Scrambled Word Groups (Grouped by Sentence):
                             </strong>
-                            <div id="drill-scrambled-box" class="flex flex-wrap gap-2 pt-1">
+                            <div id="drill-scrambled-box" class="space-y-2.5">
                                 <!-- Populated JS -->
                             </div>
                         </div>
@@ -622,9 +628,9 @@
                         <!-- Scrambled Phrase Chunks -->
                         <div class="bg-white p-3 rounded-lg border border-purple-100 space-y-1.5 text-xs">
                             <strong class="text-purple-900 block font-semibold flex items-center gap-1.5">
-                                <i class="fa-solid fa-cubes text-indigo-500"></i> Key Scrambled Phrase Chunks to Incorporate:
+                                <i class="fa-solid fa-shuffle text-indigo-500"></i> Key Words in Scrambled Random Order (Unscramble & Incorporate):
                             </strong>
-                            <div id="genre-scrambled-box" class="flex flex-wrap gap-1.5 pt-1">
+                            <div id="genre-scrambled-box" class="flex flex-wrap items-center gap-1.5 pt-1">
                                 <!-- Populated dynamically -->
                             </div>
                         </div>
@@ -921,7 +927,16 @@
 
     <!-- JavaScript Application State & Logic -->
     <script>
-        // Data Structures with Scrambled Chunks
+        let currentDrillIndex = 0;
+        let currentGenreIndex = 0;
+        let drillAnswers = Array(8).fill('');
+        let genreAnswers = Array(4).fill('');
+
+        let timerSeconds = 90 * 60; // 90 minutes
+        let timerInterval = null;
+        let isTimerRunning = true;
+
+        // Data Structures with Numbered Scrambled Word Groups per Sentence
         const DRILLS_DATA = [
             {
                 id: 1,
@@ -929,16 +944,14 @@
                 title: "Situation: Missed Meetup & Rescheduling",
                 grammarTag: "Past Simple + 2nd Conditional",
                 description: "Apologize to your friend for missing their birthday party last week, and invite them to visit you next weekend instead.",
-                scrambledChunks: [
-                    "due to an unavoidable emergency",
-                    "I was so sorry that I missed your birthday party",
-                    "we would be delighted to make it up to you",
-                    "if you came over next Saturday to reschedule"
+                scrambledGroups: [
+                    "sorry / missed / I / birthday / due to / party / an / unavoidable / so / emergency / that / your / was",
+                    "if / Saturday / came / over / you / next / to reschedule / make / would / we / delighted / it / be / to / up / you / to"
                 ],
                 wordBank: ["unavoidable", "unfortunate", "reschedule", "weekend", "delighted"],
                 grammarTargets: [
-                    "1x Complex sentence with cause/reason clause",
-                    "1x 2nd Conditional sentence (If + past simple, would + V1)"
+                    "Sentence 1: 1x Complex sentence with cause/reason clause (due to / because)",
+                    "Sentence 2: 1x 2nd Conditional sentence (If + past simple, would + V1)"
                 ],
                 modelAnswer: "I was so sorry that I missed your birthday party due to an unavoidable family emergency. If you came over next Saturday to reschedule, we would be delighted to make it up to you!"
             },
@@ -948,16 +961,14 @@
                 title: "Situation: Recommending a New Hobby Club",
                 grammarTag: "Relative Clause + 1st Conditional",
                 description: "Write to a classmate recommending that they join the new school photography club with you after school.",
-                scrambledChunks: [
-                    "who has a real passion for visual arts",
-                    "our new instructor provides amazing camera gear",
-                    "your skills will improve rapidly before the exhibition",
-                    "if you join the club with me"
+                scrambledGroups: [
+                    "instructor / photo / our / new / who / a / real / has / passion / visual / for / arts / gear / camera / amazing / provides",
+                    "join / if / the / club / you / me / with / skills / your / improve / will / rapidly / the / exhibition / before"
                 ],
                 wordBank: ["passion", "instructor", "equipment", "exhibition", "improve"],
                 grammarTargets: [
-                    "1x Relative Clause using 'who' or 'which'",
-                    "1x 1st Conditional (If + present simple, will + V1)"
+                    "Sentence 1: 1x Relative Clause using 'who' or 'which'",
+                    "Sentence 2: 1x 1st Conditional (If + present simple, will + V1)"
                 ],
                 modelAnswer: "Our new instructor, who has a real passion for visual arts, provides amazing camera gear. If you join the club with me, your skills will improve rapidly before the exhibition."
             },
@@ -967,16 +978,14 @@
                 title: "Situation: Smartphone Usage in Classrooms",
                 grammarTag: "Participle Clause + Zero Conditional",
                 description: "Write an opening for a school magazine article discussing how continuous notifications disrupt study focus.",
-                scrambledChunks: [
-                    "facing constantly buzzing phone notifications",
-                    "students suffer from severe loss of concentration",
-                    "if teenagers allow digital distractions during study",
-                    "their overall academic performance drops"
+                scrambledGroups: [
+                    "facing / phone / constantly / buzzing / notifications / students / severe / suffer / from / loss / of / concentration",
+                    "allow / if / teenagers / digital / study / during / distractions / academic / overall / performance / their / drops"
                 ],
                 wordBank: ["distraction", "concentration", "constantly", "academic", "detrimental"],
                 grammarTargets: [
-                    "1x Participle Clause sentence starting with an -ing verb",
-                    "1x Zero Conditional (If + present simple, present simple)"
+                    "Sentence 1: 1x Participle Clause sentence starting with an -ing verb",
+                    "Sentence 2: 1x Zero Conditional (If + present simple, present simple)"
                 ],
                 modelAnswer: "Facing constantly buzzing phone notifications, students suffer from severe loss of concentration. If teenagers allow digital distractions during study, their overall academic performance drops."
             },
@@ -986,15 +995,14 @@
                 title: "Situation: Green Campus & Anti-Plastic Drive",
                 grammarTag: "Compound-Complex Sentence",
                 description: "Write a conclusion urging your school to eliminate single-use plastics from the canteen.",
-                scrambledChunks: [
-                    "although replacing canteen plastics requires an initial budget",
-                    "this initiative will promote sustainability",
-                    "and our student council should take immediate action to inspire everyone"
+                scrambledGroups: [
+                    "replacing / canteen / plastics / although / requires / initial / an / budget / sustainability / this / initiative / promote / will",
+                    "student / our / council / immediate / should / action / take / inspire / everyone / and / to"
                 ],
                 wordBank: ["eliminate", "sustainability", "initiative", "canteen", "inspire"],
                 grammarTargets: [
-                    "1x Compound-Complex sentence (although + clause, clause + and + clause)",
-                    "Modal verb of recommendation ('should' or 'ought to')"
+                    "Sentence 1: 1x Compound-Complex sentence (although + clause, clause + and + clause)",
+                    "Sentence 2: Modal verb of recommendation ('should' or 'ought to')"
                 ],
                 modelAnswer: "Although replacing canteen plastics requires an initial budget, this initiative will promote sustainability, and our student council should take immediate action to inspire everyone."
             },
@@ -1004,15 +1012,14 @@
                 title: "Situation: School Library Upgrade Assessment",
                 grammarTag: "Passive Voice + Purpose Clause",
                 description: "Report on findings regarding outdated reference books and lack of study space in the library.",
-                scrambledChunks: [
-                    "during the inspection it was noted that several resources were outdated",
-                    "in order to resolve this insufficient provision",
-                    "additional funds must be allocated for digital upgrades"
+                scrambledGroups: [
+                    "inspection / the / during / noted / was / it / several / that / resources / outdated / were",
+                    "in order to / resolve / this / insufficient / provision / funds / additional / be / must / allocated / digital / for / upgrades"
                 ],
                 wordBank: ["inspected", "outdated", "resources", "insufficient", "allocated"],
                 grammarTargets: [
-                    "1x Formal Passive Voice ('It was noted that...')",
-                    "1x Subordinate clause of purpose ('in order to' / 'so that')"
+                    "Sentence 1: 1x Formal Passive Voice ('It was noted that...')",
+                    "Sentence 2: 1x Subordinate clause of purpose ('in order to' / 'so that')"
                 ],
                 modelAnswer: "During the inspection, it was noted that several resources were outdated. In order to resolve this insufficient provision, additional funds must be allocated for digital upgrades."
             },
@@ -1022,16 +1029,14 @@
                 title: "Situation: Sports Facilities & Changing Rooms",
                 grammarTag: "Formal Complex + 2nd Conditional",
                 description: "Provide formal recommendations for modernizing the school changing rooms and fields.",
-                scrambledChunks: [
-                    "while outdoor football fields remain well maintained",
-                    "indoor changing facilities are strictly inadequate",
-                    "if authorities were to authorize immediate renovation",
-                    "student sports participation would increase substantially"
+                scrambledGroups: [
+                    "while / football / outdoor / fields / well / remain / maintained / changing / indoor / facilities / strictly / are / inadequate",
+                    "authorities / if / authorize / to / were / immediate / renovation / participation / student / sports / increase / would / substantially"
                 ],
                 wordBank: ["renovation", "participation", "inadequate", "substantially", "recommend"],
                 grammarTargets: [
-                    "1x Complex sentence starting with 'While' or 'Whereas'",
-                    "1x Formal 2nd Conditional ('If management were to... would...')"
+                    "Sentence 1: 1x Complex sentence starting with 'While' or 'Whereas'",
+                    "Sentence 2: 1x Formal 2nd Conditional ('If management were to... would...')"
                 ],
                 modelAnswer: "While outdoor football fields remain well maintained, indoor changing facilities are strictly inadequate. If authorities were to authorize immediate renovation, student sports participation would increase substantially."
             },
@@ -1041,15 +1046,14 @@
                 title: "Situation: Dining Experience at a Local Cafe",
                 grammarTag: "3rd Conditional + Relative Clause",
                 description: "Review a new Italian cafe where the food was exceptional, but service speed was sluggish.",
-                scrambledChunks: [
-                    "the homemade pasta which was served with fresh basil tasted exquisite",
-                    "however if sluggish staff had been faster",
-                    "our dining experience would have been flawless"
+                scrambledGroups: [
+                    "homemade / the / pasta / which / served / was / with / basil / exquisite / tasted / vibrant / in / atmosphere / a",
+                    "however / sluggish / if / staff / faster / had / been / experience / dining / our / flawless / have / would / been"
                 ],
                 wordBank: ["atmosphere", "exquisite", "sluggish", "disappointing", "flawless"],
                 grammarTargets: [
-                    "1x Non-defining Relative Clause (', which ... ,')",
-                    "1x 3rd Conditional (If + past perfect, would have + V3)"
+                    "Sentence 1: 1x Non-defining Relative Clause (', which ... ,')",
+                    "Sentence 2: 1x 3rd Conditional (If + past perfect, would have + V3)"
                 ],
                 modelAnswer: "The homemade pasta, which was served with fresh basil, tasted exquisite in a vibrant atmosphere. However, if sluggish staff had been faster, our dining experience would have been flawless."
             },
@@ -1059,15 +1063,14 @@
                 title: "Situation: School Annual Drama Production",
                 grammarTag: "Past Perfect + Contrast Connective",
                 description: "Review a drama performance held at school, commending the actors despite technical glitches.",
-                scrambledChunks: [
-                    "the drama club had rehearsed for months for this anticipated play",
-                    "despite minor technical glitches with sound",
-                    "the lead actors managed to captivate the audience"
+                scrambledGroups: [
+                    "drama / the / club / rehearsed / had / months / for / for / anticipated / this / play",
+                    "despite / technical / minor / glitches / sound / with / lead / the / actors / managed / captivate / to / audience / the"
                 ],
                 wordBank: ["anticipated", "technical", "glitch", "performance", "captivate"],
                 grammarTargets: [
-                    "1x Sentence with Past Perfect ('had + V3')",
-                    "1x Sentence starting with 'Despite + Noun/-ing'"
+                    "Sentence 1: 1x Sentence with Past Perfect ('had + V3')",
+                    "Sentence 2: 1x Sentence starting with 'Despite + Noun/-ing'"
                 ],
                 modelAnswer: "The drama club had rehearsed for months for this anticipated play. Despite minor technical glitches with sound, the lead actors managed to captivate the audience."
             }
@@ -1080,11 +1083,7 @@
                 title: "Informal Email Task: Planning a Class Trip Itinerary",
                 targetCount: 60,
                 explanation: "You are writing a focused body paragraph (~60 words) to a classmate about an upcoming weekend class trip. Describe your planned Saturday afternoon activities, suggest what items to pack, and invite their feedback on dinner choices.",
-                scrambledChunks: [
-                    "[ as soon as we arrive at the coastal resort / we can explore ]",
-                    "[ if you bring comfortable sneakers / we will walk along the cliffs ]",
-                    "[ let me know what food you prefer for dinner ]"
-                ],
+                scrambledWords: "as soon as / arrive / we / coastal / at / resort / the / can / explore / we / bring / if / you / comfortable / sneakers / walk / will / we / along / cliffs / the / let / know / me / what / food / prefer / you / dinner / for",
                 grammarTips: "Use informal connectors (Anyway, By the way), 1st or 2nd conditionals, and friendly active tone."
             },
             {
@@ -1093,11 +1092,7 @@
                 title: "School Article Task: Balancing Study & Mental Wellbeing",
                 targetCount: 60,
                 explanation: "Write a compelling body paragraph (~60 words) for a school article addressing exam stress. Explain why taking regular study breaks improves memory retention, and urge fellow students to adopt balanced routine habits before final assessments.",
-                scrambledChunks: [
-                    "[ having studied continuously for hours / focus drops significantly ]",
-                    "[ why not schedule a short walk every afternoon? ]",
-                    "[ if students take brief exercise breaks / brain retention improves ]"
-                ],
+                scrambledWords: "studied / having / continuously / hours / for / focus / drops / significantly / why / schedule / not / a / short / walk / afternoon / every / take / if / students / brief / exercise / breaks / brain / retention / improves",
                 grammarTips: "Use engaging rhetorical questions, participle clauses ('Having studied...'), and 1st conditionals."
             },
             {
@@ -1106,11 +1101,7 @@
                 title: "Formal Report Task: Evaluating Environmental Field Trip",
                 targetCount: 60,
                 explanation: "Write a formal findings body paragraph (~60 words) evaluating a biology field trip to a nature reserve. Outline the educational activities completed, state transport delays encountered, and present formal recommendations for future trips.",
-                scrambledChunks: [
-                    "[ it was observed that students gained valuable ecological data ]",
-                    "[ however transport was delayed due to mechanical breakdown ]",
-                    "[ in order to prevent future issues / reliable private coaches must be hired ]"
-                ],
+                scrambledWords: "observed / was / it / that / students / gained / valuable / ecological / data / however / transport / delayed / was / due to / mechanical / breakdown / in order to / prevent / future / issues / reliable / private / coaches / must / be / hired",
                 grammarTips: "Maintain formal passive voice ('It was reported that...'), avoiding informal pronouns."
             },
             {
@@ -1119,63 +1110,33 @@
                 title: "Review Task: Evaluating a New Educational Documentary",
                 targetCount: 60,
                 explanation: "Write an evaluative body paragraph (~60 words) reviewing a science documentary shown at school. Praise the stunning cinematography and expert interviews, but critique the lengthy runtime and slow second half pacing.",
-                scrambledChunks: [
-                    "[ the ocean footage which was filmed in 4K resolution / looked breathtaking ]",
-                    "[ nevertheless the narrative pace slowed during the final chapter ]",
-                    "[ if the director had trimmed twenty minutes / the documentary would have been perfect ]"
-                ],
+                scrambledWords: "ocean / the / footage / which / filmed / was / 4K / in / resolution / looked / breathtaking / nevertheless / narrative / the / pace / slowed / during / final / the / chapter / director / the / if / trimmed / had / twenty / minutes / documentary / the / would / have / been / perfect",
                 grammarTips: "Use evaluative adjectives (exquisite, tedious), non-defining relative clauses, and 3rd conditionals."
             }
         ];
 
-        // State variables
-        let currentDrillIndex = 0;
-        let currentGenreIndex = 0;
-        let drillAnswers = Array(8).fill("");
-        let genreAnswers = Array(4).fill("");
-
-        let timerSeconds = 90 * 60;
-        let timerInterval = null;
-        let isTimerRunning = true;
-
         window.onload = function() {
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('session-date').value = today;
+            const dateInput = document.getElementById('session-date');
+            if (dateInput) dateInput.value = today;
 
-            startTimer();
-            renderDrillSidebarButtons();
-            renderGenreSidebarButtons();
+            renderDrillSidebar();
             renderCurrentDrill();
+            renderGenreSidebar();
             renderCurrentGenre();
             updateOverallProgress();
+            startTimer();
         };
 
-        function startTimer() {
-            if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                if (isTimerRunning && timerSeconds > 0) {
-                    timerSeconds--;
-                    updateTimerDisplay();
-                }
-            }, 1000);
-        }
-
-        function toggleTimer() {
-            isTimerRunning = !isTimerRunning;
-            document.getElementById('timer-toggle-btn').innerHTML = isTimerRunning ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
-        }
-
-        function updateTimerDisplay() {
-            const m = Math.floor(timerSeconds / 60);
-            const s = timerSeconds % 60;
-            document.getElementById('session-timer').textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        }
-
         function switchToTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(tabId).classList.remove('hidden');
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
 
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            const selectedTab = document.getElementById(tabId);
+            if (selectedTab) selectedTab.classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
                 btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
                 btn.classList.add('text-slate-600', 'hover:text-indigo-600', 'hover:bg-slate-50');
             });
@@ -1192,196 +1153,309 @@
             }
         }
 
-        // ================= DRILL LOGIC =================
-        function renderDrillSidebarButtons() {
-            const container = document.getElementById('drill-sidebar-buttons');
-            container.innerHTML = DRILLS_DATA.map((d, i) => `
-                <button onclick="selectDrill(${i+1})" id="drill-btn-${i+1}" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
-                    <span class="flex items-center gap-2 truncate">
-                        <i class="fa-solid ${i < 2 ? 'fa-envelope' : i < 4 ? 'fa-newspaper' : i < 6 ? 'fa-file-lines' : 'fa-star'} text-[11px]"></i>
-                        <span>Drill ${i+1}: ${d.title.split(':')[1] || d.title}</span>
-                    </span>
-                    <i id="drill-icon-${i+1}" class="fa-regular fa-circle text-slate-400"></i>
-                </button>
-            `).join('');
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(function() {
+                if (isTimerRunning && timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
         }
 
-        function selectDrill(indexOneBased) {
-            currentDrillIndex = indexOneBased - 1;
+        function toggleTimer() {
+            isTimerRunning = !isTimerRunning;
+            const btn = document.getElementById('timer-toggle-btn');
+            if (btn) {
+                btn.innerHTML = isTimerRunning ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const timerEl = document.getElementById('session-timer');
+            if (timerEl) timerEl.textContent = display;
+        }
+
+        function renderDrillSidebar() {
+            const container = document.getElementById('drill-sidebar-buttons');
+            if (!container) return;
+            container.innerHTML = '';
+
+            DRILLS_DATA.forEach((drill, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `drill-btn-${idx}`;
+                btn.onclick = () => selectDrill(idx);
+                container.appendChild(btn);
+            });
+            updateDrillSidebarUI();
+        }
+
+        function selectDrill(idx) {
+            currentDrillIndex = idx;
             renderCurrentDrill();
         }
 
-        function navigateDrill(step) {
-            const nextIdx = currentDrillIndex + step;
-            if (nextIdx >= 0 && nextIdx < 8) {
-                currentDrillIndex = nextIdx;
-                renderCurrentDrill();
-            }
+        function updateDrillSidebarUI() {
+            DRILLS_DATA.forEach((drill, idx) => {
+                const btn = document.getElementById(`drill-btn-${idx}`);
+                if (!btn) return;
+                const isComplete = (drillAnswers[idx] || '').trim().length >= 15;
+                const isActive = idx === currentDrillIndex;
+
+                let bgClasses = 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+                let iconClass = 'fa-regular fa-circle text-slate-400';
+
+                if (isComplete) {
+                    bgClasses = 'bg-blue-600 text-white border-blue-600 font-semibold shadow-xs';
+                    iconClass = 'fa-solid fa-circle-check text-white';
+                }
+
+                if (isActive) {
+                    if (isComplete) {
+                        bgClasses = 'bg-indigo-600 text-white border-indigo-600 shadow-md font-bold';
+                    } else {
+                        bgClasses = 'bg-slate-900 text-white border-slate-900 font-bold';
+                    }
+                }
+
+                btn.className = `w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${bgClasses}`;
+                btn.innerHTML = `
+                    <span class="truncate pr-2">${idx + 1}. Drill ${idx + 1}</span>
+                    <i class="${iconClass}"></i>
+                `;
+            });
+
+            const completedCount = drillAnswers.filter(a => a.trim().length >= 15).length;
+            const badge = document.getElementById('drill-counter-badge');
+            if (badge) badge.textContent = `Completed: ${completedCount} / 8 Drills`;
         }
 
         function renderCurrentDrill() {
             const d = DRILLS_DATA[currentDrillIndex];
 
-            document.getElementById('drill-genre-tag').textContent = d.genre;
-            document.getElementById('drill-title').textContent = d.title;
-            document.getElementById('drill-target-grammar').textContent = `Target: ${d.grammarTag}`;
-            document.getElementById('drill-description').textContent = d.description;
+            const genreTag = document.getElementById('drill-genre-tag');
+            if (genreTag) genreTag.textContent = d.genre;
+            
+            const titleEl = document.getElementById('drill-title');
+            if (titleEl) titleEl.textContent = d.title;
 
-            // Render Scrambled Words Box
+            const targetGrammar = document.getElementById('drill-target-grammar');
+            if (targetGrammar) targetGrammar.textContent = `Target: ${d.grammarTag}`;
+
+            const descEl = document.getElementById('drill-description');
+            if (descEl) descEl.textContent = d.description;
+
+            // Render Scrambled Words Box numbered by sentence group (1, 2)
             const box = document.getElementById('drill-scrambled-box');
-            box.innerHTML = d.scrambledChunks.map(c => `
-                <span class="bg-indigo-100 border border-indigo-200 text-indigo-900 font-mono text-[11px] px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1">
-                    <i class="fa-solid fa-arrows-rotate text-[9px] text-indigo-500"></i> "${c}"
-                </span>
-            `).join('');
+            if (box) {
+                box.innerHTML = d.scrambledGroups.map((groupStr, gIdx) => {
+                    const wordsArray = groupStr.split(' / ');
+                    const wordsHtml = wordsArray.map((word, idx) => `
+                        <span class="bg-indigo-100/90 border border-indigo-200 text-indigo-950 font-mono text-xs px-2 py-0.5 rounded shadow-xs font-bold">
+                            ${word}
+                        </span>
+                        ${idx < wordsArray.length - 1 ? '<span class="text-indigo-400 font-extrabold text-xs select-none">/</span>' : ''}
+                    `).join(' ');
+
+                    return `
+                        <div class="flex items-start gap-2.5 bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100">
+                            <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+                                ${gIdx + 1}
+                            </span>
+                            <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+                                ${wordsHtml}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
 
             // Render Word Bank
             const wb = document.getElementById('drill-word-bank');
-            wb.innerHTML = d.wordBank.map(w => `<span class="text-[11px] bg-slate-100 border border-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono font-medium">${w}</span>`).join('');
+            if (wb) {
+                wb.innerHTML = d.wordBank.map(w => `<span class="text-[11px] bg-slate-100 border border-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono font-medium">${w}</span>`).join('');
+            }
 
             // Render Grammar Checklist
             const gc = document.getElementById('drill-grammar-list');
-            gc.innerHTML = d.grammarTargets.map(g => `<li>${g}</li>`).join('');
+            if (gc) {
+                gc.innerHTML = d.grammarTargets.map(g => `<li>${g}</li>`).join('');
+            }
 
-            document.getElementById('drill-model-text').textContent = `"${d.modelAnswer}"`;
-            document.getElementById('drill-model-box').classList.add('hidden');
+            const modelText = document.getElementById('drill-model-text');
+            if (modelText) modelText.textContent = `"${d.modelAnswer}"`;
+
+            const modelBox = document.getElementById('drill-model-box');
+            if (modelBox) modelBox.classList.add('hidden');
 
             const textarea = document.getElementById('drill-input-area');
-            textarea.value = drillAnswers[currentDrillIndex];
-            updateDrillWordCount();
+            if (textarea) textarea.value = drillAnswers[currentDrillIndex] || '';
 
+            const prevBtn = document.getElementById('drill-prev-btn');
+            const nextBtn = document.getElementById('drill-next-btn');
+            if (prevBtn) prevBtn.disabled = currentDrillIndex === 0;
+            if (nextBtn) nextBtn.disabled = currentDrillIndex === DRILLS_DATA.length - 1;
+
+            updateDrillWordCount();
             updateDrillSidebarUI();
         }
 
         function handleDrillInput() {
-            const text = document.getElementById('drill-input-area').value;
-            drillAnswers[currentDrillIndex] = text;
+            const textarea = document.getElementById('drill-input-area');
+            if (!textarea) return;
+            drillAnswers[currentDrillIndex] = textarea.value;
             updateDrillWordCount();
             updateDrillSidebarUI();
             updateOverallProgress();
         }
 
         function updateDrillWordCount() {
-            const text = drillAnswers[currentDrillIndex].trim();
-            const count = text ? text.split(/\s+/).length : 0;
-            document.getElementById('drill-word-count').textContent = `${count} words`;
+            const textarea = document.getElementById('drill-input-area');
+            const countEl = document.getElementById('drill-word-count');
+            if (!textarea || !countEl) return;
+            const text = textarea.value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            countEl.textContent = `${words} words`;
+        }
+
+        function navigateDrill(direction) {
+            const newIdx = currentDrillIndex + direction;
+            if (newIdx >= 0 && newIdx < DRILLS_DATA.length) {
+                currentDrillIndex = newIdx;
+                renderCurrentDrill();
+            }
         }
 
         function toggleCurrentModelAnswer() {
-            document.getElementById('drill-model-box').classList.toggle('hidden');
+            const modelBox = document.getElementById('drill-model-box');
+            if (modelBox) modelBox.classList.toggle('hidden');
         }
 
-        function updateDrillSidebarUI() {
-            let completedCount = 0;
-            for (let i = 0; i < 8; i++) {
-                const isComplete = drillAnswers[i].trim().length >= 15;
-                if (isComplete) completedCount++;
-
-                const btn = document.getElementById(`drill-btn-${i+1}`);
-                const icon = document.getElementById(`drill-icon-${i+1}`);
-
-                if (i === currentDrillIndex) {
-                    btn.className = `drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
-                        isComplete ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-slate-900 text-white border-slate-900'
-                    }`;
-                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
-                } else {
-                    btn.className = `drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
-                        isComplete ? 'bg-blue-600 text-white border-blue-600 font-semibold shadow-xs' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                    }`;
-                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
-                }
-            }
-            document.getElementById('drill-counter-badge').textContent = `Completed: ${completedCount} / 8 Drills`;
-        }
-
-        // ================= GENRE LOGIC =================
-        function renderGenreSidebarButtons() {
+        function renderGenreSidebar() {
             const container = document.getElementById('genre-sidebar-buttons');
-            container.innerHTML = GENRE_DATA.map((g, i) => `
-                <button onclick="selectGenreTask(${i+1})" id="genre-btn-${i+1}" class="genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
-                    <span class="flex items-center gap-2 truncate">
-                        <i class="fa-solid ${i===0 ? 'fa-envelope text-indigo-500' : i===1 ? 'fa-newspaper text-purple-500' : i===2 ? 'fa-file-lines text-blue-500' : 'fa-star text-amber-500'}"></i>
-                        <span>${g.genreTag.split(':')[1]}</span>
-                    </span>
-                    <i id="genre-icon-${i+1}" class="fa-regular fa-circle text-slate-400"></i>
-                </button>
-            `).join('');
+            if (!container) return;
+            container.innerHTML = '';
+
+            GENRE_DATA.forEach((genre, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `genre-btn-${idx + 1}`;
+                btn.onclick = () => selectGenre(idx);
+                container.appendChild(btn);
+            });
+            updateGenreSidebarUI();
         }
 
-        function selectGenreTask(indexOneBased) {
-            currentGenreIndex = indexOneBased - 1;
+        function selectGenre(idx) {
+            currentGenreIndex = idx;
             renderCurrentGenre();
-        }
-
-        function navigateGenre(step) {
-            const nextIdx = currentGenreIndex + step;
-            if (nextIdx >= 0 && nextIdx < 4) {
-                currentGenreIndex = nextIdx;
-                renderCurrentGenre();
-            }
         }
 
         function renderCurrentGenre() {
             const g = GENRE_DATA[currentGenreIndex];
 
-            document.getElementById('genre-type-badge').textContent = g.genreTag;
-            document.getElementById('genre-task-title').textContent = g.title;
-            document.getElementById('genre-word-target-badge').textContent = `Target: ~${g.targetCount} Words`;
-            document.getElementById('genre-explanation-text').textContent = g.explanation;
-            document.getElementById('genre-grammar-tips').textContent = g.grammarTips;
+            const typeBadge = document.getElementById('genre-type-badge');
+            if (typeBadge) typeBadge.textContent = g.genreTag;
 
+            const taskTitle = document.getElementById('genre-task-title');
+            if (taskTitle) taskTitle.textContent = g.title;
+
+            const targetBadge = document.getElementById('genre-word-target-badge');
+            if (targetBadge) targetBadge.textContent = `Target: ~${g.targetCount} Words`;
+
+            const expText = document.getElementById('genre-explanation-text');
+            if (expText) expText.textContent = g.explanation;
+
+            const tipsText = document.getElementById('genre-grammar-tips');
+            if (tipsText) tipsText.textContent = g.grammarTips;
+
+            // Render Scrambled Words Box for Genre with / separators
             const box = document.getElementById('genre-scrambled-box');
-            box.innerHTML = g.scrambledChunks.map(c => `
-                <span class="bg-purple-100 border border-purple-200 text-purple-900 font-mono text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1">
-                    <i class="fa-solid fa-puzzle-piece text-[10px] text-purple-500"></i> ${c}
-                </span>
-            `).join('');
+            if (box) {
+                const wordsArray = g.scrambledWords.split(' / ');
+                box.innerHTML = wordsArray.map((word, idx) => `
+                    <span class="bg-purple-100/90 border border-purple-200 text-purple-950 font-mono text-xs px-2 py-0.5 rounded shadow-xs font-bold">
+                        ${word}
+                    </span>
+                    ${idx < wordsArray.length - 1 ? '<span class="text-purple-400 font-extrabold text-xs select-none">/</span>' : ''}
+                `).join('');
+            }
 
             const textarea = document.getElementById('genre-input-area');
-            textarea.value = genreAnswers[currentGenreIndex];
+            if (textarea) textarea.value = genreAnswers[currentGenreIndex] || '';
+
+            const prevBtn = document.getElementById('genre-prev-btn');
+            const nextBtn = document.getElementById('genre-next-btn');
+            if (prevBtn) prevBtn.disabled = currentGenreIndex === 0;
+            if (nextBtn) nextBtn.disabled = currentGenreIndex === GENRE_DATA.length - 1;
 
             updateGenreWordCount();
             updateGenreSidebarUI();
         }
 
         function handleGenreInput() {
-            const text = document.getElementById('genre-input-area').value;
-            genreAnswers[currentGenreIndex] = text;
+            const textarea = document.getElementById('genre-input-area');
+            if (!textarea) return;
+            genreAnswers[currentGenreIndex] = textarea.value;
             updateGenreWordCount();
             updateGenreSidebarUI();
             updateOverallProgress();
         }
 
         function updateGenreWordCount() {
-            const text = genreAnswers[currentGenreIndex].trim();
+            const textarea = document.getElementById('genre-input-area');
+            const liveCount = document.getElementById('genre-live-count');
+            if (!textarea || !liveCount) return;
+            const text = textarea.value.trim();
             const words = text ? text.split(/\s+/).length : 0;
             const target = GENRE_DATA[currentGenreIndex].targetCount;
-            document.getElementById('genre-live-count').textContent = `${words} / ${target} words`;
+            liveCount.textContent = `${words} / ${target} words`;
         }
 
         function updateGenreSidebarUI() {
             let completedCount = 0;
             for (let i = 0; i < 4; i++) {
-                const isComplete = genreAnswers[i].trim().length >= 25;
+                const isComplete = (genreAnswers[i] || '').trim().length >= 25;
                 if (isComplete) completedCount++;
 
                 const btn = document.getElementById(`genre-btn-${i+1}`);
-                const icon = document.getElementById(`genre-icon-${i+1}`);
+                if (!btn) continue;
+
+                let bgClasses = 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+                let iconClass = 'fa-regular fa-circle text-slate-400';
+
+                if (isComplete) {
+                    bgClasses = 'bg-blue-600 text-white border-blue-600 font-semibold shadow-xs';
+                    iconClass = 'fa-solid fa-circle-check text-white';
+                }
 
                 if (i === currentGenreIndex) {
-                    btn.className = `genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
-                        isComplete ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-slate-900 text-white border-slate-900'
-                    }`;
-                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
-                } else {
-                    btn.className = `genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
-                        isComplete ? 'bg-blue-600 text-white border-blue-600 font-semibold shadow-xs' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                    }`;
-                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
+                    if (isComplete) {
+                        bgClasses = 'bg-indigo-600 text-white border-indigo-600 shadow-md font-bold';
+                    } else {
+                        bgClasses = 'bg-slate-900 text-white border-slate-900 font-bold';
+                    }
                 }
+
+                btn.className = `genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${bgClasses}`;
+                btn.innerHTML = `
+                    <span class="truncate pr-2">${i + 1}. Genre Task ${i + 1}</span>
+                    <i class="${iconClass}"></i>
+                `;
             }
-            document.getElementById('genre-counter-badge').textContent = `Completed: ${completedCount} / 4 Tasks`;
+
+            const counterBadge = document.getElementById('genre-counter-badge');
+            if (counterBadge) counterBadge.textContent = `Completed: ${completedCount} / 4 Tasks`;
+        }
+
+        function navigateGenre(direction) {
+            const newIdx = currentGenreIndex + direction;
+            if (newIdx >= 0 && newIdx < GENRE_DATA.length) {
+                currentGenreIndex = newIdx;
+                renderCurrentGenre();
+            }
         }
 
         function updateOverallProgress() {
@@ -1390,29 +1464,42 @@
             genreAnswers.forEach(ans => { if (ans.trim().length >= 25) doneCount++; });
 
             const percentage = Math.round((doneCount / 12) * 100);
-            document.getElementById('overall-progress').style.width = percentage + '%';
+            const progressBar = document.getElementById('overall-progress');
+            if (progressBar) progressBar.style.width = percentage + '%';
 
             const summaryBadge = document.getElementById('summary-progress-badge');
             if (summaryBadge) summaryBadge.textContent = `Completed: ${doneCount} / 12 Tasks (${percentage}%)`;
         }
 
-        // ================= SUBMISSION & PRINT PREVIEW LOGIC =================
         function updatePrintData() {
-            const sName = document.getElementById('student-name').value.trim() || "Sarah Mansour";
-            const tName = document.getElementById('tutor-name').value.trim() || "Amanullah Khan";
-            const dDate = document.getElementById('session-date').value || "August 2026";
-            const rating = document.getElementById('self-rating').value;
-            const notes = document.getElementById('student-notes').value.trim() || "None provided.";
+            const sNameInput = document.getElementById('student-name');
+            const tNameInput = document.getElementById('tutor-name');
+            const dateInput = document.getElementById('session-date');
+            const ratingInput = document.getElementById('self-rating');
+            const notesInput = document.getElementById('student-notes');
 
-            document.getElementById('pdf-student-name').textContent = sName;
-            document.getElementById('pdf-tutor-name').textContent = tName;
-            document.getElementById('pdf-date').textContent = dDate;
-            document.getElementById('pdf-rating').textContent = rating;
-            document.getElementById('pdf-notes').textContent = notes;
+            const sName = (sNameInput && sNameInput.value.trim()) || "Sarah Mansour";
+            const tName = (tNameInput && tNameInput.value.trim()) || "Amanullah Khan";
+            const dDate = (dateInput && dateInput.value) || "August 2026";
+            const rating = (ratingInput && ratingInput.value) || "⭐⭐⭐⭐⭐ (5/5)";
+            const notes = (notesInput && notesInput.value.trim()) || "None provided.";
+
+            const pdfSName = document.getElementById('pdf-student-name');
+            const pdfTName = document.getElementById('pdf-tutor-name');
+            const pdfDate = document.getElementById('pdf-date');
+            const pdfRating = document.getElementById('pdf-rating');
+            const pdfNotes = document.getElementById('pdf-notes');
+
+            if (pdfSName) pdfSName.textContent = sName;
+            if (pdfTName) pdfTName.textContent = tName;
+            if (pdfDate) pdfDate.textContent = dDate;
+            if (pdfRating) pdfRating.textContent = rating;
+            if (pdfNotes) pdfNotes.textContent = notes;
         }
 
         function renderSubmissionPreview() {
             const webContainer = document.getElementById('submission-preview-list');
+            if (!webContainer) return;
             webContainer.innerHTML = '';
 
             // Section 2 Drills Preview
@@ -1459,67 +1546,70 @@
         function populatePdfPages() {
             // Page 2: Situation Drills (8 Drills formatted neatly in PDF grid)
             const pdfDrillsContainer = document.getElementById('pdf-drills-container');
-            pdfDrillsContainer.innerHTML = '';
-
-            DRILLS_DATA.forEach((d, idx) => {
-                const ans = drillAnswers[idx].trim() || "__________________________________________________";
-                const card = document.createElement('div');
-                card.className = "border border-slate-300 p-2 rounded bg-slate-50/50 space-y-1";
-                card.innerHTML = `
-                    <div class="font-bold text-slate-800 border-b border-slate-200 pb-0.5">${d.genre}</div>
-                    <p class="text-[9px] text-slate-500"><strong>Target:</strong> ${d.grammarTag}</p>
-                    <p class="text-[10px] italic text-slate-800 leading-tight">"${escapeHtml(ans)}"</p>
-                `;
-                pdfDrillsContainer.appendChild(card);
-            });
+            if (pdfDrillsContainer) {
+                pdfDrillsContainer.innerHTML = '';
+                DRILLS_DATA.forEach((d, idx) => {
+                    const ans = drillAnswers[idx].trim() || "__________________________________________________";
+                    const card = document.createElement('div');
+                    card.className = "border border-slate-300 p-2 rounded bg-slate-50/50 space-y-1";
+                    card.innerHTML = `
+                        <div class="font-bold text-slate-800 border-b border-slate-200 pb-0.5">${d.genre}</div>
+                        <p class="text-[9px] text-slate-500"><strong>Target:</strong> ${d.grammarTag}</p>
+                        <p class="text-[10px] italic text-slate-800 leading-tight">"${escapeHtml(ans)}"</p>
+                    `;
+                    pdfDrillsContainer.appendChild(card);
+                });
+            }
 
             // Page 3: Genre Tasks 1 & 2
             const pdfGenrePart1 = document.getElementById('pdf-genre-part1');
-            pdfGenrePart1.innerHTML = '';
+            if (pdfGenrePart1) {
+                pdfGenrePart1.innerHTML = '';
+                [0, 1].forEach(idx => {
+                    const g = GENRE_DATA[idx];
+                    const ans = genreAnswers[idx].trim() || "____________________________________________________________________________________";
+                    const words = ans ? ans.split(/\s+/).length : 0;
 
-            [0, 1].forEach(idx => {
-                const g = GENRE_DATA[idx];
-                const ans = genreAnswers[idx].trim() || "____________________________________________________________________________________";
-                const words = ans ? ans.split(/\s+/).length : 0;
-
-                const box = document.createElement('div');
-                box.className = "border border-slate-300 p-3 rounded-lg bg-slate-50/50 space-y-2";
-                box.innerHTML = `
-                    <div class="flex justify-between items-center border-b border-slate-300 pb-1">
-                        <span class="font-bold text-slate-800 text-xs">${g.genreTag}: ${g.title}</span>
-                        <span class="text-[10px] font-mono">Word Count: ${words} / 60</span>
-                    </div>
-                    <p class="text-[10px] text-slate-600"><strong>Prompt Context:</strong> ${g.explanation}</p>
-                    <div class="border border-slate-300 bg-white p-2.5 rounded text-[11px] leading-relaxed italic">
-                        "${escapeHtml(ans)}"
-                    </div>
-                `;
-                pdfGenrePart1.appendChild(box);
-            });
+                    const box = document.createElement('div');
+                    box.className = "border border-slate-300 p-3 rounded-lg bg-slate-50/50 space-y-2";
+                    box.innerHTML = `
+                        <div class="flex justify-between items-center border-b border-slate-300 pb-1">
+                            <span class="font-bold text-slate-800 text-xs">${g.genreTag}: ${g.title}</span>
+                            <span class="text-[10px] font-mono">Word Count: ${words} / 60</span>
+                        </div>
+                        <p class="text-[10px] text-slate-600"><strong>Prompt Context:</strong> ${g.explanation}</p>
+                        <div class="border border-slate-300 bg-white p-2.5 rounded text-[11px] leading-relaxed italic">
+                            "${escapeHtml(ans)}"
+                        </div>
+                    `;
+                    pdfGenrePart1.appendChild(box);
+                });
+            }
 
             // Page 4: Genre Tasks 3 & 4
             const pdfGenrePart2 = document.getElementById('pdf-genre-part2');
-            pdfGenrePart2.innerHTML = '';
+            if (pdfGenrePart2) {
+                pdfGenrePart2.innerHTML = '';
+                [2, 3].forEach(idx => {
+                    const g = GENRE_DATA[idx];
+                    const ans = genreAnswers[idx].trim() || "____________________________________________________________________________________";
+                    const words = ans ? ans.split(/\s+/).length : 0;
 
-            [2, 3].forEach(idx => {
-                const g = GENRE_DATA[idx];
-                const ans = genreAnswers[idx].trim() || "____________________________________________________________________________________";
-                const words = ans ? ans.split(/\s+/).length : 0;
-
-                const box = document.createElement('div');
-                box.className = "border border-slate-300 p-3 rounded-lg bg-slate-50/50 space-y-2";
-                box.innerHTML = `
-                    <div class="flex justify-between items-center border-b border-slate-300 pb-1">
-                        <span class="font-bold text-slate-800 text-xs">${g.genreTag}: ${g.title}</span>
-                        <span class="text-[10px] font-mono">Word Count: ${words} / 60</span>
-                    </div>
-                    <p class="text-[10px] text-slate-600"><strong>Prompt Context:</strong> ${g.explanation}</p>
-                    <div class="border border-slate-300 bg-white p-2.5 rounded text-[11px] leading-relaxed italic">
-                        "${escapeHtml(ans)}"
-                    </div>
-                `;
-                pdfGenrePart2.appendChild(box);
-            });
+                    const box = document.createElement('div');
+                    box.className = "border border-slate-300 p-3 rounded-lg bg-slate-50/50 space-y-2";
+                    box.innerHTML = `
+                        <div class="flex justify-between items-center border-b border-slate-300 pb-1">
+                            <span class="font-bold text-slate-800 text-xs">${g.genreTag}: ${g.title}</span>
+                            <span class="text-[10px] font-mono">Word Count: ${words} / 60</span>
+                        </div>
+                        <p class="text-[10px] text-slate-600"><strong>Prompt Context:</strong> ${g.explanation}</p>
+                        <div class="border border-slate-300 bg-white p-2.5 rounded text-[11px] leading-relaxed italic">
+                            "${escapeHtml(ans)}"
+                        </div>
+                    `;
+                    pdfGenrePart2.appendChild(box);
+                });
+            }
         }
 
         function triggerPrintProcess() {
