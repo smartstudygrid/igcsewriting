@@ -191,74 +191,143 @@
                 </div>
             </div>
 
-            <!-- Sentence Structures Reference Grid with Color Breakdown -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                
-                <!-- Simple & Compound Card -->
-                <div class="bg-white rounded-2xl border-2 border-blue-200 p-5 shadow-sm space-y-3 hover:border-blue-400 transition-all">
-                    <div class="flex items-center justify-between border-b border-blue-100 pb-2.5">
-                        <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-base">
-                            <span class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">1</span>
-                            Simple & Compound Sentences
-                        </h3>
-                        <span class="text-xs px-2.5 py-1 bg-blue-100 text-blue-800 font-semibold rounded-full">Foundation Band</span>
-                    </div>
+            <!-- 4 Core Sentence Types Grid -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-indigo-600"></i>
+                        The 4 Fundamental Sentence Structures
+                    </h3>
+                    <span class="text-xs px-2.5 py-1 bg-indigo-100 text-indigo-800 font-semibold rounded-full">Language Variety Toolkit</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Use <span class="font-bold text-blue-700">Simple Sentences</span> for strong impact, and <span class="font-bold text-indigo-700">Compound Sentences</span> to connect two equal independent clauses using coordinating conjunctions (<strong class="text-blue-900 bg-blue-50 px-1 py-0.5 rounded">FANBOYS</strong>: For, And, Nor, But, Or, Yet, So).
-                    </p>
-                    
-                    <div class="space-y-2 text-xs">
-                        <div class="bg-blue-50/70 p-3 rounded-xl border border-blue-200/60 space-y-1">
-                            <span class="text-[11px] font-bold text-blue-900 uppercase tracking-wider block">Compound Sentence Example:</span>
+                    <!-- 1. Simple Sentence -->
+                    <div class="bg-white rounded-2xl border-2 border-blue-200 p-4 shadow-sm space-y-3 hover:border-blue-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between border-b border-blue-100 pb-2">
+                                <h4 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-sm">
+                                    <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold">1</span>
+                                    Simple Sentence
+                                </h4>
+                                <span class="text-[10px] px-2 py-0.5 bg-blue-100 text-blue-800 font-bold rounded-full">Core</span>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Contains <strong class="text-blue-800">one independent clause</strong> with a subject and verb. Use for strong dramatic impact or concise statements.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-blue-50/80 p-3 rounded-xl border border-blue-200/60 space-y-1 text-xs">
+                            <span class="text-[10px] font-bold text-blue-900 uppercase tracking-wider block">Formula & Example:</span>
                             <p class="text-slate-800 font-medium">
+                                [<span class="text-blue-700 font-bold">The school council</span>] 
+                                [<span class="text-indigo-700 font-bold">approved</span>] 
+                                [<span class="text-emerald-700 font-bold">the new recycling initiative</span>].
+                            </p>
+                            <p class="text-[10px] text-slate-500 italic pt-0.5">
+                                <span class="text-blue-700 font-semibold">Subject</span> + <span class="text-indigo-700 font-semibold">Verb</span> + <span class="text-emerald-700 font-semibold">Object</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Compound Sentence -->
+                    <div class="bg-white rounded-2xl border-2 border-indigo-200 p-4 shadow-sm space-y-3 hover:border-indigo-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between border-b border-indigo-100 pb-2">
+                                <h4 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-sm">
+                                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">2</span>
+                                    Compound Sentence
+                                </h4>
+                                <span class="text-[10px] px-2 py-0.5 bg-indigo-100 text-indigo-800 font-bold rounded-full">FANBOYS</span>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Connects <strong class="text-indigo-800">two equal independent clauses</strong> using a coordinating conjunction (<strong class="text-indigo-900 bg-indigo-50 px-1 rounded">FANBOYS</strong>).
+                            </p>
+                        </div>
+
+                        <div class="bg-indigo-50/80 p-3 rounded-xl border border-indigo-200/60 space-y-1 text-xs">
+                            <span class="text-[10px] font-bold text-indigo-900 uppercase tracking-wider block">Formula & Example:</span>
+                            <p class="text-slate-800 font-medium leading-snug">
                                 [<span class="text-blue-700">The event was meticulously planned</span>], 
-                                <span class="bg-amber-300 text-slate-900 font-extrabold px-1.5 py-0.5 rounded shadow-sm">yet</span> 
-                                [<span class="text-purple-700">many students arrived late due to traffic</span>].
+                                <span class="bg-amber-300 text-slate-900 font-extrabold px-1 rounded shadow-xs">yet</span> 
+                                [<span class="text-purple-700">many students arrived late</span>].
                             </p>
-                            <p class="text-[10px] text-slate-500 italic mt-1">
-                                <span class="text-blue-700 font-bold">Independent Clause 1</span> + <span class="text-amber-800 font-bold">FANBOYS Conjunction</span> + <span class="text-purple-700 font-bold">Independent Clause 2</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Complex & Compound-Complex Card -->
-                <div class="bg-white rounded-2xl border-2 border-purple-200 p-5 shadow-sm space-y-3 hover:border-purple-400 transition-all">
-                    <div class="flex items-center justify-between border-b border-purple-100 pb-2.5">
-                        <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-base">
-                            <span class="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">2</span>
-                            Complex & Compound-Complex
-                        </h3>
-                        <span class="text-xs px-2.5 py-1 bg-purple-100 text-purple-800 font-semibold rounded-full">Top Band Target</span>
-                    </div>
-                    
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Join an independent main clause with one or more dependent clauses using subordinating conjunctions (<strong class="text-purple-900 bg-purple-50 px-1 py-0.5 rounded">Although, Because, Since, While, Unless, Whereas</strong>).
-                    </p>
-
-                    <div class="space-y-2 text-xs">
-                        <div class="bg-purple-50/70 p-3 rounded-xl border border-purple-200/60 space-y-1">
-                            <span class="text-[11px] font-bold text-purple-900 uppercase tracking-wider block">Compound-Complex Example:</span>
-                            <p class="text-slate-800 font-medium">
-                                <span class="bg-purple-600 text-white font-extrabold px-1.5 py-0.5 rounded">Because</span> 
-                                [<span class="text-purple-800">the hall was overcrowded</span>], 
-                                [<span class="text-blue-700">many parents left early</span>], 
-                                <span class="bg-amber-300 text-slate-900 font-extrabold px-1.5 py-0.5 rounded">and</span> 
-                                [<span class="text-emerald-700">the principal shortened the speech</span>].
-                            </p>
-                            <p class="text-[10px] text-slate-500 italic mt-1">
-                                <span class="text-purple-700 font-bold">Subordinator</span> + <span class="text-purple-800 font-bold">Dependent Clause</span> + <span class="text-blue-700 font-bold">Main Clause 1</span> + <span class="text-amber-800 font-bold">FANBOYS</span> + <span class="text-emerald-700 font-bold">Main Clause 2</span>
+                            <p class="text-[10px] text-slate-500 italic pt-0.5">
+                                <span class="text-blue-700 font-semibold">Main Clause 1</span> + <span class="text-amber-800 font-semibold">FANBOYS</span> + <span class="text-purple-700 font-semibold">Main Clause 2</span>
                             </p>
                         </div>
                     </div>
-                </div>
 
+                    <!-- 3. Complex Sentence -->
+                    <div class="bg-white rounded-2xl border-2 border-purple-200 p-4 shadow-sm space-y-3 hover:border-purple-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between border-b border-purple-100 pb-2">
+                                <h4 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-sm">
+                                    <span class="w-6 h-6 rounded-lg bg-purple-600 text-white flex items-center justify-center text-xs font-bold">3</span>
+                                    Complex Sentence
+                                </h4>
+                                <span class="text-[10px] px-2 py-0.5 bg-purple-100 text-purple-800 font-bold rounded-full">Subordinate</span>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Joins an <strong class="text-purple-800">independent main clause</strong> with a <strong class="text-purple-800">dependent clause</strong> using subordinating conjunctions (<strong class="text-purple-900 bg-purple-50 px-1 rounded">Although, Because, Since, While</strong>).
+                            </p>
+                        </div>
+
+                        <div class="bg-purple-50/80 p-3 rounded-xl border border-purple-200/60 space-y-1 text-xs">
+                            <span class="text-[10px] font-bold text-purple-900 uppercase tracking-wider block">Formula & Example:</span>
+                            <p class="text-slate-800 font-medium leading-snug">
+                                <span class="bg-purple-600 text-white font-bold px-1 rounded">Although</span> 
+                                [<span class="text-purple-800">the weather was severe</span>], 
+                                [<span class="text-blue-700">the team completed the challenge</span>].
+                            </p>
+                            <p class="text-[10px] text-slate-500 italic pt-0.5">
+                                <span class="text-purple-700 font-semibold">Subordinator</span> + <span class="text-purple-800 font-semibold">Dependent</span> + <span class="text-blue-700 font-semibold">Main Clause</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Compound-Complex Sentence -->
+                    <div class="bg-white rounded-2xl border-2 border-amber-200 p-4 shadow-sm space-y-3 hover:border-amber-400 transition-all flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between border-b border-amber-100 pb-2">
+                                <h4 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-sm">
+                                    <span class="w-6 h-6 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs font-bold">4</span>
+                                    Compound-Complex
+                                </h4>
+                                <span class="text-[10px] px-2 py-0.5 bg-amber-100 text-amber-800 font-bold rounded-full">Top Band Target</span>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Combines <strong class="text-amber-800">at least two main independent clauses</strong> and <strong class="text-amber-800">at least one dependent clause</strong>.
+                            </p>
+                        </div>
+
+                        <div class="bg-amber-50/80 p-3 rounded-xl border border-amber-200/60 space-y-1 text-xs">
+                            <span class="text-[10px] font-bold text-amber-900 uppercase tracking-wider block">Formula & Example:</span>
+                            <p class="text-slate-800 font-medium leading-snug">
+                                <span class="bg-purple-600 text-white font-bold px-1 rounded text-[11px]">Because</span> 
+                                [<span class="text-purple-800">the hall was crowded</span>], 
+                                [<span class="text-blue-700">many left early</span>], 
+                                <span class="bg-amber-300 text-slate-900 font-extrabold px-1 rounded text-[11px]">and</span> 
+                                [<span class="text-emerald-700">the principal cut the speech</span>].
+                            </p>
+                            <p class="text-[10px] text-slate-500 italic pt-0.5">
+                                <span class="text-purple-700 font-semibold">Dependent</span> + <span class="text-blue-700 font-semibold">Main 1</span> + <span class="text-amber-800 font-semibold">FANBOYS</span> + <span class="text-emerald-700 font-semibold">Main 2</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Advanced High-Mark Structures Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                
                 <!-- Participle Clauses Card -->
                 <div class="bg-white rounded-2xl border-2 border-emerald-200 p-5 shadow-sm space-y-3 hover:border-emerald-400 transition-all">
                     <div class="flex items-center justify-between border-b border-emerald-100 pb-2.5">
                         <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-base">
-                            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">3</span>
+                            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">5</span>
                             Participle Clause Openings
                         </h3>
                         <span class="text-xs px-2.5 py-1 bg-emerald-100 text-emerald-800 font-semibold rounded-full">Vivid Variety</span>
@@ -287,7 +356,7 @@
                 <div class="bg-white rounded-2xl border-2 border-cyan-200 p-5 shadow-sm space-y-3 hover:border-cyan-400 transition-all">
                     <div class="flex items-center justify-between border-b border-cyan-100 pb-2.5">
                         <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2 text-base">
-                            <span class="w-7 h-7 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-xs font-bold">4</span>
+                            <span class="w-7 h-7 rounded-lg bg-cyan-600 text-white flex items-center justify-center text-xs font-bold">6</span>
                             Formal Passive Voice
                         </h3>
                         <span class="text-xs px-2.5 py-1 bg-cyan-100 text-cyan-800 font-semibold rounded-full">Report & Article Register</span>
