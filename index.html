@@ -47,10 +47,10 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* Custom scrollbar */
+        /* Custom scrollbars */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
@@ -63,32 +63,36 @@
             background: #94a3b8;
         }
 
-        /* Target Print Styling for Tutor Submission */
+        /* Target Print Styling for Multi-Page Tutor PDF */
         @media print {
-            body {
-                background: white !important;
-                color: black !important;
-                font-size: 11pt;
-            }
             .no-print {
                 display: none !important;
             }
             .print-only {
                 display: block !important;
             }
-            .page-break {
-                page-break-before: always;
-            }
-            .print-card {
-                border: 1px solid #cbd5e1 !important;
-                box-shadow: none !important;
+            body {
                 background: white !important;
-                break-inside: avoid;
+                color: black !important;
+                font-size: 10pt;
+                margin: 0;
+                padding: 0;
             }
-            textarea {
-                border: 1px solid #94a3b8 !important;
-                background: #fafafa !important;
-                resize: none;
+            .pdf-page {
+                page-break-after: always;
+                page-break-inside: avoid;
+                min-height: 98vh;
+                padding: 1.5rem;
+                box-sizing: border-box;
+                border: 1px solid #e2e8f0;
+                margin-bottom: 1rem;
+            }
+            .pdf-page:last-child {
+                page-break-after: auto;
+            }
+            textarea, input {
+                border: 1px solid #cbd5e1 !important;
+                background: #f8fafc !important;
             }
         }
 
@@ -139,7 +143,7 @@
                 <!-- Print / Submission Quick Button -->
                 <button onclick="switchToTab('tab-submission'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2 rounded-lg transition-all flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-paper-plane"></i>
-                    <span>Submit & Export</span>
+                    <span>Submit & Export PDF</span>
                 </button>
             </div>
         </div>
@@ -150,11 +154,11 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <!-- Interactive Web View Main Area -->
+    <main class="no-print flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-        <!-- Interactive Navigation Tabs -->
-        <div class="no-print bg-white rounded-xl shadow-sm border border-slate-200/80 p-1.5 flex flex-wrap gap-1">
+        <!-- Navigation Tabs -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200/80 p-1.5 flex flex-wrap gap-1">
             <button onclick="switchToTab('tab-blueprint')" id="btn-tab-blueprint" class="tab-btn flex-1 min-w-[140px] py-2.5 px-3 rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-2 transition-all bg-indigo-600 text-white shadow-sm">
                 <i class="fa-solid fa-book-open"></i>
                 <span>1. Grammar Toolkit</span>
@@ -176,7 +180,6 @@
         <!-- ================= TAB 1: GRAMMAR & GENRE BLUEPRINT ================= -->
         <section id="tab-blueprint" class="tab-content space-y-6">
             
-            <!-- Welcome Header Card -->
             <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="relative z-10 max-w-3xl">
@@ -187,22 +190,12 @@
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
                         In IGCSE ESL writing tasks (Email, Article, Report, Review), examiners award up to <strong class="text-amber-300 font-semibold">15 marks</strong> per task: <strong class="text-white underline decoration-indigo-400">9 marks for Language</strong> (range, accuracy, sentence variety, complex structures) and <strong class="text-white underline decoration-indigo-400">6 marks for Content</strong> (fulfilling all prompt points, register, tone, audience).
                     </p>
-                    <div class="mt-3 flex flex-wrap gap-3 text-xs">
-                        <span class="bg-indigo-950/80 border border-indigo-400/30 px-3 py-1.5 rounded-lg text-indigo-200">
-                            <strong class="text-amber-300">Language (9 Marks):</strong> Tenses, Conditionals, Connectives, Clause Variety
-                        </span>
-                        <span class="bg-indigo-950/80 border border-indigo-400/30 px-3 py-1.5 rounded-lg text-indigo-200">
-                            <strong class="text-amber-300">Content (6 Marks):</strong> Task Completion, Relevance, Register & Format
-                        </span>
-                    </div>
                 </div>
             </div>
 
             <!-- Sentence Structures Reference Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                
-                <!-- Simple & Compound Card -->
-                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3 hover:border-indigo-300 transition-all">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                         <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2">
                             <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</span>
@@ -210,23 +203,16 @@
                         </h3>
                         <span class="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 font-medium rounded">Foundation</span>
                     </div>
-                    <p class="text-xs text-slate-600">Use simple sentences for strong impact and compound sentences to join two equal main ideas.</p>
-                    
+                    <p class="text-xs text-slate-600">Use simple sentences for strong impact and compound sentences to join two equal main ideas using FANBOYS.</p>
                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 space-y-2 text-xs">
-                        <div>
-                            <strong class="text-slate-800">Simple Sentence:</strong>
-                            <p class="text-slate-600 italic">"The school organized an annual career fair."</p>
-                        </div>
                         <div>
                             <strong class="text-slate-800">Compound (FANBOYS):</strong>
                             <p class="text-slate-600 italic">"The event was well-planned, <span class="font-bold text-indigo-600">yet</span> many students arrived late."</p>
-                            <span class="text-[11px] text-slate-400">Connectives: For, And, Nor, But, Or, Yet, So</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Complex & Compound-Complex Card -->
-                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3 hover:border-indigo-300 transition-all">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                         <h3 class="font-heading font-bold text-slate-800 flex items-center gap-2">
                             <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">2</span>
@@ -235,557 +221,187 @@
                         <span class="text-xs px-2 py-0.5 bg-purple-50 text-purple-700 font-medium rounded">Top Band Mark</span>
                     </div>
                     <p class="text-xs text-slate-600">Shows relationships like cause, contrast, time, and condition with subordinating clauses.</p>
-                    
                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 space-y-2 text-xs">
-                        <div>
-                            <strong class="text-slate-800">Complex (Subordinator):</strong>
-                            <p class="text-slate-600 italic">"<span class="font-bold text-purple-600">Although</span> the rain was heavy, we continued our tour."</p>
-                        </div>
                         <div>
                             <strong class="text-slate-800">Compound-Complex:</strong>
                             <p class="text-slate-600 italic">"<span class="font-bold text-purple-600">Because</span> the hall was overcrowded, many parents left early, <span class="font-bold text-indigo-600">and</span> the speakers had to shorten their presentations."</p>
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Conditionals Cheat Sheet for IGCSE -->
+            <!-- Conditionals Cheat Sheet -->
             <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2">
-                        <i class="fa-solid fa-code-branch text-indigo-600"></i>
-                        The Conditionals Matrix for Writing Tasks
-                    </h3>
-                    <span class="text-xs text-slate-500">Essential for Opinions & Recommendations</span>
-                </div>
-
+                <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2 border-b border-slate-100 pb-3">
+                    <i class="fa-solid fa-code-branch text-indigo-600"></i>
+                    Conditionals Matrix for IGCSE ESL
+                </h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <!-- Zero Conditional -->
-                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-xs text-slate-800">Zero Conditional</span>
-                            <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded">Facts</span>
-                        </div>
+                    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
+                        <span class="font-bold text-xs text-slate-800">Zero Conditional</span>
                         <p class="text-[11px] font-mono text-indigo-700">If + Present, Present</p>
                         <p class="text-xs text-slate-600 italic">"If schools promote recycling, waste decreases."</p>
-                        <span class="inline-block text-[10px] text-slate-500 font-medium">Best for: Reports / Articles</span>
                     </div>
-
-                    <!-- 1st Conditional -->
-                    <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-xs text-emerald-900">1st Conditional</span>
-                            <span class="text-[10px] bg-emerald-200 text-emerald-800 px-1.5 py-0.5 rounded">Real Future</span>
-                        </div>
-                        <p class="text-[11px] font-mono text-emerald-700">If + Present, Will + Verb</p>
-                        <p class="text-xs text-slate-600 italic">"If you visit me next month, we will explore the coast."</p>
-                        <span class="inline-block text-[10px] text-emerald-700 font-medium">Best for: Emails / Suggestions</span>
+                    <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 space-y-1">
+                        <span class="font-bold text-xs text-emerald-900">1st Conditional</span>
+                        <p class="text-[11px] font-mono text-emerald-700">If + Present, Will + V1</p>
+                        <p class="text-xs text-slate-600 italic">"If you visit me, we will explore the coast."</p>
                     </div>
-
-                    <!-- 2nd Conditional -->
-                    <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-xs text-amber-900">2nd Conditional</span>
-                            <span class="text-[10px] bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded">Hypothetical</span>
-                        </div>
-                        <p class="text-[11px] font-mono text-amber-700">If + Past Simple, Would + Verb</p>
-                        <p class="text-xs text-slate-600 italic">"If the library had more computers, students would study here more."</p>
-                        <span class="inline-block text-[10px] text-amber-700 font-medium">Best for: Reports / Articles</span>
+                    <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/80 space-y-1">
+                        <span class="font-bold text-xs text-amber-900">2nd Conditional</span>
+                        <p class="text-[11px] font-mono text-amber-700">If + Past, Would + V1</p>
+                        <p class="text-xs text-slate-600 italic">"If we had more computers, students would study more."</p>
                     </div>
-
-                    <!-- 3rd Conditional -->
-                    <div class="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200/80 space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-xs text-rose-900">3rd Conditional</span>
-                            <span class="text-[10px] bg-rose-200 text-rose-800 px-1.5 py-0.5 rounded">Past Regret</span>
-                        </div>
-                        <p class="text-[11px] font-mono text-rose-700">If + Past Perfect, Would Have + V3</p>
-                        <p class="text-xs text-slate-600 italic">"If the organizers had provided maps, visitors would not have lost their way."</p>
-                        <span class="inline-block text-[10px] text-rose-700 font-medium">Best for: Reviews / Reports</span>
+                    <div class="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200/80 space-y-1">
+                        <span class="font-bold text-xs text-rose-900">3rd Conditional</span>
+                        <p class="text-[11px] font-mono text-rose-700">If + Past Perf, Would Have + V3</p>
+                        <p class="text-xs text-slate-600 italic">"If they had brought maps, they would not have got lost."</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Writing Genres Overview Table -->
-            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-3">
-                <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-indigo-600"></i>
-                    The 4 IGCSE Genres & Target Grammar Checklist
-                </h3>
-                
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
-                                <th class="p-3">Genre</th>
-                                <th class="p-3">Tone & Style</th>
-                                <th class="p-3">Key Target Tenses</th>
-                                <th class="p-3">Signature Sentence Structures</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 text-slate-600">
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-bold text-indigo-700 flex items-center gap-1.5">
-                                    <i class="fa-regular fa-envelope"></i> Informal Email
-                                </td>
-                                <td class="p-3">Friendly, lively, conversational</td>
-                                <td class="p-3">Present Continuous, Past Simple, Present Perfect</td>
-                                <td class="p-3">2nd Conditionals (invitations), Informal Relative Clauses ("the guy who...")</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-bold text-purple-700 flex items-center gap-1.5">
-                                    <i class="fa-solid fa-newspaper"></i> Article
-                                </td>
-                                <td class="p-3">Engaging, expressive, persuasive</td>
-                                <td class="p-3">Present Simple, Present Continuous</td>
-                                <td class="p-3">Participle Clauses ("Having spent..."), Rhetorical Questions, 1st Conditionals</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-bold text-blue-700 flex items-center gap-1.5">
-                                    <i class="fa-regular fa-file-lines"></i> Formal Report
-                                </td>
-                                <td class="p-3">Objective, factual, professional</td>
-                                <td class="p-3">Past Simple (findings), Present Simple (facts)</td>
-                                <td class="p-3">Passive Voice ("It was observed that..."), Subordinate clause of purpose ("In order to...")</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-bold text-amber-700 flex items-center gap-1.5">
-                                    <i class="fa-regular fa-star"></i> Review
-                                </td>
-                                <td class="p-3">Evaluative, vivid, balanced opinion</td>
-                                <td class="p-3">Past Simple, Past Perfect</td>
-                                <td class="p-3">3rd Conditional (evaluative regret), Relative Clauses ("which was located...")</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Action Button to Next Section -->
-            <div class="flex justify-end pt-2">
+            <div class="flex justify-end">
                 <button onclick="switchToTab('tab-drills'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm px-6 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2">
-                    <span>Proceed to 2. Guided Situation Drills</span>
+                    <span>Proceed to 2. Situation Drills</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
         </section>
 
-        <!-- ================= TAB 2: GUIDED SITUATION DRILLS ================= -->
+        <!-- ================= TAB 2: GUIDED SITUATION DRILLS (SIDEBAR UI) ================= -->
         <section id="tab-drills" class="tab-content hidden space-y-6">
             
-            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2">
-                <div class="flex justify-between items-center flex-wrap gap-2">
-                    <div>
-                        <h2 class="font-heading font-bold text-xl text-slate-800">Section 2: Situation & Word Bank Drills</h2>
-                        <p class="text-xs text-slate-500">Construct sentences matching the exact scenario, using the word bank and required grammar constraints.</p>
-                    </div>
-                    <span class="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1 rounded-full font-medium">
-                        Target Time: 30 Mins • 8 Tasks
-                    </span>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-wrap justify-between items-center gap-3">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-slate-800">Section 2: Interactive Situation Drills</h2>
+                    <p class="text-xs text-slate-500">Select a drill from the sidebar. Write 2-3 sentences matching the exact scenario. The button turns blue upon completion!</p>
+                </div>
+                <div id="drill-counter-badge" class="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1.5 rounded-full">
+                    Completed: 0 / 8 Drills
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <!-- DRILL 1: INFORMAL EMAIL (Past Simple & 2nd Conditional) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
-                            <i class="fa-regular fa-envelope"></i> Informal Email • Drill 1
-                        </span>
-                        <span class="text-[11px] text-slate-400">Past Simple + 2nd Conditional</span>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Missed Meetup & Invitation</h4>
-                        <p class="text-xs text-slate-600">Apologize to your friend for missing their birthday party last week, and invite them to visit you next weekend instead.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">unavoidable</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">unfortunate</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">reschedule</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">weekend</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">delighted</span>
+            <!-- Sidebar + Main Drill Panel Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                <!-- Left Sidebar Nav -->
+                <div class="md:col-span-4 lg:col-span-3 space-y-2">
+                    <div class="bg-white rounded-xl border border-slate-200 p-3 shadow-sm">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 mb-2">Select Drill Task</h3>
+                        <div class="space-y-1.5" id="drill-sidebar-buttons">
+                            <!-- Populated dynamically / static buttons -->
+                            <button onclick="selectDrill(1)" id="drill-btn-1" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-slate-100 text-slate-700 border-slate-200">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-envelope"></i> Drill 1: Missed Party</span>
+                                <i id="drill-icon-1" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(2)" id="drill-btn-2" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-envelope"></i> Drill 2: New Hobby</span>
+                                <i id="drill-icon-2" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(3)" id="drill-btn-3" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-newspaper"></i> Drill 3: Phones in School</span>
+                                <i id="drill-icon-3" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(4)" id="drill-btn-4" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-newspaper"></i> Drill 4: Green Campus</span>
+                                <i id="drill-icon-4" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(5)" id="drill-btn-5" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-file-lines"></i> Drill 5: Library Upgrade</span>
+                                <i id="drill-icon-5" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(6)" id="drill-btn-6" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-file-lines"></i> Drill 6: Sports Pitch</span>
+                                <i id="drill-icon-6" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(7)" id="drill-btn-7" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-star"></i> Drill 7: Cafe Review</span>
+                                <i id="drill-icon-7" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectDrill(8)" id="drill-btn-8" class="drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-star"></i> Drill 8: Drama Festival</span>
+                                <i id="drill-icon-8" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
                         </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Complex sentence using <span class="font-mono text-indigo-600 font-bold">because</span> or <span class="font-mono text-indigo-600 font-bold">due to</span></li>
-                            <li>1x 2nd Conditional sentence (<span class="font-mono text-purple-600">If + past simple, would + verb</span>)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-1-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-1')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-1" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"I was so sorry that I missed your birthday party due to an <strong class="underline">unavoidable</strong> family emergency. If you came over to my house next <strong class="underline">weekend</strong> to <strong class="underline">reschedule</strong>, I would be absolutely <strong class="underline">delighted</strong> to make it up to you!"</p>
                     </div>
                 </div>
 
-                <!-- DRILL 2: INFORMAL EMAIL (Relative Clause & 1st Conditional) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
-                            <i class="fa-regular fa-envelope"></i> Informal Email • Drill 2
+                <!-- Main Drill Workstation Container -->
+                <div class="md:col-span-8 lg:col-span-9 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5" id="drill-main-container">
+                    
+                    <!-- Dynamic Drill Header -->
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div>
+                            <span id="drill-genre-tag" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                                Informal Email • Drill 1
+                            </span>
+                            <h3 id="drill-title" class="font-heading font-bold text-slate-800 text-lg mt-2">Situation: Missed Meetup & Invitation</h3>
+                        </div>
+                        <span id="drill-target-grammar" class="text-xs bg-purple-50 text-purple-700 px-3 py-1 rounded-md font-medium border border-purple-100">
+                            Target: Past Simple + 2nd Conditional
                         </span>
-                        <span class="text-[11px] text-slate-400">Relative Clause + 1st Conditional</span>
                     </div>
 
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Recommending a New Hobby</h4>
-                        <p class="text-xs text-slate-600">Write to a classmate suggesting they join the new school photography club with you.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">passion</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">instructor</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">equipment</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">exhibition</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">improve</span>
+                    <!-- Task Context Explanation & Prompt Ideas -->
+                    <div class="bg-indigo-50/50 border border-indigo-100 p-4 rounded-xl space-y-2">
+                        <h4 class="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info text-indigo-600"></i> Scenario Details & Writing Prompt Guidance:
+                        </h4>
+                        <p id="drill-description" class="text-xs text-slate-700 leading-relaxed">
+                            You missed your friend's birthday party last week because of an unexpected event. You need to politely explain why you couldn't make it and suggest meeting up next weekend to make it up to them.
+                        </p>
+                        
+                        <!-- Extra Student Guidance Ideas -->
+                        <div class="bg-white p-3 rounded-lg border border-indigo-100 text-xs space-y-1">
+                            <strong class="text-indigo-900 block font-semibold"><i class="fa-solid fa-lightbulb text-amber-500"></i> Ideas to help you construct sentences:</strong>
+                            <ul id="drill-ideas-list" class="list-disc list-inside text-slate-600 space-y-0.5">
+                                <li>State the reason for missing the party using <span class="font-mono text-indigo-600">due to</span> or <span class="font-mono text-indigo-600">because of</span>.</li>
+                                <li>Use the 2nd conditional to propose a fun alternative meet-up: <em>"If you came over next Saturday, we could..."</em></li>
+                            </ul>
                         </div>
                     </div>
 
+                    <!-- Word Bank -->
                     <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Relative Clause using <span class="font-mono text-indigo-600 font-bold">who</span> or <span class="font-mono text-indigo-600 font-bold">which</span></li>
-                            <li>1x 1st Conditional (<span class="font-mono text-purple-600">If + present simple, will + verb</span>)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-2-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-2')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-2" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"Our new photography <strong class="underline">instructor</strong>, <span class="font-bold">who</span> has a real <strong class="underline">passion</strong> for teaching, provides amazing <strong class="underline">equipment</strong>. If you join the club with me, your camera skills <span class="font-bold">will improve</span> rapidly before the end-of-year <strong class="underline">exhibition</strong>."</p>
-                    </div>
-                </div>
-
-                <!-- DRILL 3: ARTICLE (Participle Clause & Zero Conditional) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
-                            <i class="fa-solid fa-newspaper"></i> School Article • Drill 3
-                        </span>
-                        <span class="text-[11px] text-slate-400">Participle Clause + Zero Conditional</span>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Smartphone Usage in School</h4>
-                        <p class="text-xs text-slate-600">Write an opening for a school magazine article discussing how continuous notifications disrupt teenagers' focus during study time.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">distraction</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">concentration</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">constantly</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">academic</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">detrimental</span>
+                        <label class="text-xs font-bold text-slate-700 block">Required Word Bank Vocabulary:</label>
+                        <div id="drill-word-bank" class="flex flex-wrap gap-1.5">
+                            <!-- Populated JS -->
                         </div>
                     </div>
 
+                    <!-- Grammar Constraints -->
                     <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Participle Clause sentence starting with an <span class="font-mono text-indigo-600 font-bold">-ing verb</span> (e.g., <em>"Facing endless..."</em>)</li>
-                            <li>1x Zero Conditional (<span class="font-mono text-purple-600">If + present simple, present simple</span>)</li>
+                        <label class="text-xs font-bold text-purple-800 block"><i class="fa-solid fa-bullseye"></i> Grammar Checklist Targets:</label>
+                        <ul id="drill-grammar-list" class="text-xs text-slate-600 list-disc list-inside space-y-0.5 bg-purple-50/40 p-2.5 rounded-lg border border-purple-100">
+                            <!-- Populated JS -->
                         </ul>
                     </div>
 
+                    <!-- Interactive Text Area -->
                     <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-3-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold text-slate-700">Your Constructed Sentences:</label>
+                            <span id="drill-word-count" class="text-xs font-mono text-slate-400">0 words</span>
+                        </div>
+                        <textarea id="drill-input-area" oninput="handleDrillInput()" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your sentences here..."></textarea>
                     </div>
 
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-3')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
+                    <!-- Model Answer Toggle -->
+                    <div class="pt-1 flex justify-between items-center">
+                        <button onclick="toggleCurrentModelAnswer()" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Toggle Model Solution Example
                         </button>
-                    </div>
-
-                    <div id="model-3" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"<span class="font-bold">Facing</span> <strong class="underline">constantly</strong> buzzing notifications on their phones, students frequently suffer from a loss of deep <strong class="underline">concentration</strong>. If teenagers allow digital <strong class="underline">distraction</strong> during revision, their <strong class="underline">academic</strong> performance <span class="font-bold">suffers</span> greatly."</p>
-                    </div>
-                </div>
-
-                <!-- DRILL 4: ARTICLE (Compound-Complex & Modal Recommendation) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
-                            <i class="fa-solid fa-newspaper"></i> School Article • Drill 4
-                        </span>
-                        <span class="text-[11px] text-slate-400">Compound-Complex Sentence</span>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Promoting Green Campus Initiatives</h4>
-                        <p class="text-xs text-slate-600">Write a persuasive conclusion for an article urging your school to eliminate single-use plastics from the canteen.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">eliminate</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">sustainability</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">initiative</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">canteen</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">inspire</span>
+                        <div class="flex gap-2">
+                            <button onclick="navigateDrill(-1)" id="drill-prev-btn" class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium hover:bg-slate-200">Previous</button>
+                            <button onclick="navigateDrill(1)" id="drill-next-btn" class="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-medium hover:bg-indigo-700">Next Drill</button>
                         </div>
                     </div>
 
-                    <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Compound-Complex sentence using <span class="font-mono text-indigo-600 font-bold">although</span> + coordinating conjunction (<span class="font-mono text-indigo-600 font-bold">and / but</span>)</li>
-                            <li>Modal verb of recommendation (<span class="font-mono text-purple-600">should / ought to</span>)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-4-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-4')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-4" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
+                    <div id="drill-model-box" class="hidden bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-xs text-emerald-900 space-y-1">
                         <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"<span class="font-bold">Although</span> replacing plastic containers in the <strong class="underline">canteen</strong> may require an initial budget, this eco-friendly <strong class="underline">initiative</strong> will promote long-term <strong class="underline">sustainability</strong>, <span class="font-bold">and</span> our student council <span class="font-bold">should</span> take immediate action to <strong class="underline">inspire</strong> other schools."</p>
-                    </div>
-                </div>
-
-                <!-- DRILL 5: REPORT (Passive Voice & Suggestion Clause) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
-                            <i class="fa-regular fa-file-lines"></i> Formal Report • Drill 5
-                        </span>
-                        <span class="text-[11px] text-slate-400">Passive Voice + In Order To</span>
+                        <p id="drill-model-text" class="italic leading-relaxed"></p>
                     </div>
 
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: School Library Upgrade</h4>
-                        <p class="text-xs text-slate-600">Report on the findings regarding outdated books and lack of silent study rooms in the library.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">inspected</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">outdated</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">resources</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">insufficient</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">allocated</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Formal Passive Voice sentence (<span class="font-mono text-indigo-600">"It was observed that..." / "Funds were..."</span>)</li>
-                            <li>1x Subordinate clause of purpose using <span class="font-mono text-purple-600">in order to</span> or <span class="font-mono text-purple-600">so that</span></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-5-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-5')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-5" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"During the inspection, <span class="font-bold">it was noted that</span> several reference <strong class="underline">resources</strong> were highly <strong class="underline">outdated</strong>. <span class="font-bold">In order to</span> resolve this <strong class="underline">insufficient</strong> provision, additional funds <span class="font-bold">must be allocated</span> for digital upgrading."</p>
-                    </div>
-                </div>
-
-                <!-- DRILL 6: REPORT (Formal Complex & 2nd Conditional Suggestion) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
-                            <i class="fa-regular fa-file-lines"></i> Formal Report • Drill 6
-                        </span>
-                        <span class="text-[11px] text-slate-400">Formal Complex + 2nd Conditional</span>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Sports Facilities Assessment</h4>
-                        <p class="text-xs text-slate-600">Provide a recommendation for improving the school's sports changing rooms and football pitch.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">renovation</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">participation</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">inadequate</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">substantially</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">recommend</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Complex sentence starting with <span class="font-mono text-indigo-600 font-bold">Whereas</span> or <span class="font-mono text-indigo-600 font-bold">While</span></li>
-                            <li>1x Formal 2nd Conditional recommendation (<span class="font-mono text-purple-600">If the management were to... student participation would...</span>)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-6-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-6')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-6" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"<span class="font-bold">While</span> current outdoor pitches are well-maintained, indoor changing facilities remain strictly <strong class="underline">inadequate</strong>. If school authorities <span class="font-bold">were to authorize</span> an immediate <strong class="underline">renovation</strong>, student <strong class="underline">participation</strong> in extra-curricular sports <span class="font-bold">would increase</span> <strong class="underline">substantially</strong>."</p>
-                    </div>
-                </div>
-
-                <!-- DRILL 7: REVIEW (3rd Conditional & Relative Clause) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
-                            <i class="fa-regular fa-star"></i> Restaurant Review • Drill 7
-                        </span>
-                        <span class="text-[11px] text-slate-400">3rd Conditional + Relative Clause</span>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: Evaluating Service & Atmosphere</h4>
-                        <p class="text-xs text-slate-600">Review a recently opened Italian cafe where the food was great but service was painfully slow.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">atmosphere</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">exquisite</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">sluggish</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">disappointing</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">flawless</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Non-defining Relative Clause using <span class="font-mono text-indigo-600 font-bold">, which ... ,</span></li>
-                            <li>1x 3rd Conditional showing evaluative regret (<span class="font-mono text-purple-600">If + past perfect, would have + V3</span>)</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-7-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-7')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-7" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"The homemade pasta, <span class="font-bold">which was served with fresh herbs</span>, tasted absolutely <strong class="underline">exquisite</strong> in a vibrant <strong class="underline">atmosphere</strong>. However, if the <strong class="underline">sluggish</strong> staff <span class="font-bold">had been faster</span>, our overall dining experience <span class="font-bold">would have been flawless</span>."</p>
-                    </div>
-                </div>
-
-                <!-- DRILL 8: REVIEW (Past Perfect & Contrast Connective) -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all space-y-4 print-card">
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
-                            <i class="fa-regular fa-star"></i> Event Review • Drill 8
-                        </span>
-                        <span class="text-[11px] text-slate-400">Past Perfect + Despite</span>
-                    </div>
-
-                    <div class="space-y-1">
-                        <h4 class="font-heading font-bold text-slate-800 text-sm">Situation: School Drama Festival</h4>
-                        <p class="text-xs text-slate-600">Review a drama performance held at your school last week, highlighting the actors' effort despite technical glitches.</p>
-                    </div>
-
-                    <div class="bg-slate-50 p-3 rounded-lg space-y-1 border border-slate-100">
-                        <p class="text-[11px] font-semibold text-slate-700">Word Bank:</p>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">anticipated</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">technical</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">glitch</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">performance</span>
-                            <span class="text-[11px] bg-white border border-slate-200 text-slate-700 px-2 py-0.5 rounded">captivate</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <p class="text-[11px] font-bold text-purple-700"><i class="fa-solid fa-bullseye"></i> Grammar Targets:</p>
-                        <ul class="text-xs text-slate-600 list-disc list-inside space-y-0.5">
-                            <li>1x Sentence using <span class="font-mono text-indigo-600 font-bold">Past Perfect</span> (<span class="font-mono text-indigo-600">had + V3</span>) to show prior preparation</li>
-                            <li>1x Sentence starting with <span class="font-mono text-purple-600">Despite + Noun/-ing</span></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-700 mb-1">Your Sentence Construction:</label>
-                        <textarea id="drill-8-text" oninput="updateDrillProgress()" rows="3" class="w-full text-xs p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your 2-3 sentences here..."></textarea>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-1">
-                        <button onclick="toggleModelAnswer('model-8')" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                            <i class="fa-regular fa-eye"></i> Toggle Model Answer
-                        </button>
-                    </div>
-
-                    <div id="model-8" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 space-y-1">
-                        <span class="font-bold text-[11px] text-emerald-800 uppercase tracking-wider block">Model Solution:</span>
-                        <p class="italic">"The drama club <span class="font-bold">had rehearsed</span> for months for this eagerly <strong class="underline">anticipated</strong> play. <span class="font-bold">Despite minor technical glitches</span> with the sound equipment, the lead actors managed to <strong class="underline">captivate</strong> the audience with an outstanding <strong class="underline">performance</strong>."</p>
-                    </div>
                 </div>
 
             </div>
@@ -793,124 +409,117 @@
             <!-- Navigation Bar -->
             <div class="flex justify-between items-center pt-4 border-t border-slate-200">
                 <button onclick="switchToTab('tab-blueprint'); window.scrollTo(0,0);" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-all">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> Back to Grammar Blueprint
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Back to Blueprint
                 </button>
                 <button onclick="switchToTab('tab-writing'); window.scrollTo(0,0);" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2">
-                    <span>Proceed to 3. Full Writing Prompts</span>
+                    <span>Proceed to 3. Genre Writing</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
         </section>
 
-        <!-- ================= TAB 3: GENRE WRITING ================= -->
+        <!-- ================= TAB 3: GENRE WRITING (SIDEBAR UI) ================= -->
         <section id="tab-writing" class="tab-content hidden space-y-6">
             
-            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2">
-                <div class="flex justify-between items-center flex-wrap gap-2">
-                    <div>
-                        <h2 class="font-heading font-bold text-xl text-slate-800">Section 3: IGCSE Genre Writing Application</h2>
-                        <p class="text-xs text-slate-500">Apply your grammar toolkit to write targeted paragraphs (approx. 70-100 words each) for authentic IGCSE exam style tasks.</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-semibold flex items-center gap-1.5">
-                            <i class="fa-solid fa-award text-amber-500"></i> Task Mark: 15 (9 Language / 6 Content)
-                        </span>
-                        <span class="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1 rounded-full font-medium">
-                            Target Time: 35 Mins
-                        </span>
-                    </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-wrap justify-between items-center gap-3">
+                <div>
+                    <h2 class="font-heading font-bold text-xl text-slate-800">Section 3: IGCSE Genre Writing Application</h2>
+                    <p class="text-xs text-slate-500">Focus on writing specific, targeted body paragraphs (~60 words each). Select a task from the sidebar to begin.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-semibold">
+                        15 Marks (9 Language / 6 Content)
+                    </span>
+                    <span id="genre-counter-badge" class="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 px-3 py-1 rounded-full">
+                        Completed: 0 / 4 Tasks
+                    </span>
                 </div>
             </div>
 
-            <!-- Writing Prompt Cards Grid -->
-            <div class="space-y-6">
-
-                <!-- WRITING TASK 1: INFORMAL EMAIL -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
-                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm font-bold">1</span>
-                            <h3 class="font-heading font-bold text-slate-800 text-base">Informal Email Task: Planning a Trip</h3>
+            <!-- Genre Writing Sidebar + Workstation -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                <!-- Genre Sidebar Navigation -->
+                <div class="md:col-span-4 lg:col-span-3 space-y-2">
+                    <div class="bg-white rounded-xl border border-slate-200 p-3 shadow-sm">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 mb-2">Select Genre Task</h3>
+                        <div class="space-y-1.5" id="genre-sidebar-buttons">
+                            <button onclick="selectGenreTask(1)" id="genre-btn-1" class="genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-indigo-600 text-white border-indigo-600">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-envelope"></i> Task 1: Informal Email</span>
+                                <i id="genre-icon-1" class="fa-regular fa-circle text-indigo-200"></i>
+                            </button>
+                            <button onclick="selectGenreTask(2)" id="genre-btn-2" class="genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-newspaper"></i> Task 2: School Article</span>
+                                <i id="genre-icon-2" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectGenreTask(3)" id="genre-btn-3" class="genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-file-lines"></i> Task 3: Formal Report</span>
+                                <i id="genre-icon-3" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
+                            <button onclick="selectGenreTask(4)" id="genre-btn-4" class="genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all bg-white text-slate-600 border-slate-200 hover:bg-slate-50">
+                                <span class="flex items-center gap-2"><i class="fa-regular fa-star"></i> Task 4: Film / Review</span>
+                                <i id="genre-icon-4" class="fa-regular fa-circle text-slate-400"></i>
+                            </button>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">Informal Register</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between items-center mb-1 text-xs">
-                            <label class="font-medium text-slate-700">Your Email Paragraph:</label>
-                            <span id="word-count-email" class="text-slate-400 font-mono">0 words</span>
-                        </div>
-                        <textarea id="write-email-text" oninput="updateWordCount('write-email-text', 'word-count-email'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Dear Sam, I am writing to let you know that..."></textarea>
                     </div>
                 </div>
 
-                <!-- WRITING TASK 2: ARTICLE -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
-                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold">2</span>
-                            <h3 class="font-heading font-bold text-slate-800 text-base">School Magazine Article Task: Healthy Lifestyles</h3>
+                <!-- Main Genre Workstation Area -->
+                <div class="md:col-span-8 lg:col-span-9 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
+                    
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div>
+                            <span id="genre-type-badge" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                                Genre 1: Informal Email
+                            </span>
+                            <h3 id="genre-task-title" class="font-heading font-bold text-slate-800 text-lg mt-2">Email Task: Suggesting a Holiday Itinerary</h3>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-purple-50 text-purple-700 rounded-full border border-purple-100">Engaging Register</span>
-                        </div>
+                        <span id="genre-word-target-badge" class="text-xs font-bold bg-amber-50 text-amber-800 px-3 py-1 rounded-md border border-amber-200">
+                            Target: ~60 Words
+                        </span>
                     </div>
 
+                    <!-- Genre Explanation Box (~60 words explanation) -->
+                    <div class="bg-purple-50/50 border border-purple-100 p-4 rounded-xl space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xs font-bold text-purple-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-pen-fancy text-purple-600"></i> Focused Genre Prompt Segment & Task Breakdown:
+                            </h4>
+                            <span class="text-[10px] bg-purple-200/60 text-purple-800 px-2 py-0.5 rounded">~60 Words Context</span>
+                        </div>
+                        <p id="genre-explanation-text" class="text-xs text-slate-700 leading-relaxed font-sans">
+                            <!-- Populated dynamically: ~60 words breakdown -->
+                        </p>
+                    </div>
+
+                    <!-- Target Grammar for this Genre -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                        <strong class="text-xs text-slate-800 block"><i class="fa-solid fa-list-check text-indigo-600"></i> Recommended Language Checklist:</strong>
+                        <p id="genre-grammar-tips" class="text-xs text-slate-600 italic">
+                            <!-- Dynamic tips -->
+                        </p>
+                    </div>
+
+                    <!-- Writing Box + Live Word Count (X / 60 Words) -->
                     <div>
-                        <div class="flex justify-between items-center mb-1 text-xs">
-                            <label class="font-medium text-slate-700">Your Article Paragraph:</label>
-                            <span id="word-count-article" class="text-slate-400 font-mono">0 words</span>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-xs font-bold text-slate-800">Your Focused Genre Paragraph:</label>
+                            <div id="genre-live-count" class="text-xs font-mono font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded border border-slate-200">
+                                0 / 60 words
+                            </div>
                         </div>
-                        <textarea id="write-article-text" oninput="updateWordCount('write-article-text', 'word-count-article'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Balancing schoolwork and wellbeing is essential..."></textarea>
+                        <textarea id="genre-input-area" oninput="handleGenreInput()" rows="6" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="Write your paragraph here..."></textarea>
                     </div>
-                </div>
 
-                <!-- WRITING TASK 3: FORMAL REPORT -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
-                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-sm font-bold">3</span>
-                            <h3 class="font-heading font-bold text-slate-800 text-base">Formal Report Task: School Trip Evaluation</h3>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full border border-blue-100">Formal Register</span>
+                    <!-- Bottom Nav Controls -->
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-[11px] text-slate-400">Aim for accuracy, appropriate register, and varied clause structures.</span>
+                        <div class="flex gap-2">
+                            <button onclick="navigateGenre(-1)" id="genre-prev-btn" class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium hover:bg-slate-200">Previous</button>
+                            <button onclick="navigateGenre(1)" id="genre-next-btn" class="px-4 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-medium hover:bg-indigo-700">Next Genre Task</button>
                         </div>
                     </div>
 
-                    <div>
-                        <div class="flex justify-between items-center mb-1 text-xs">
-                            <label class="font-medium text-slate-700">Your Report Paragraph:</label>
-                            <span id="word-count-report" class="text-slate-400 font-mono">0 words</span>
-                        </div>
-                        <textarea id="write-report-text" oninput="updateWordCount('write-report-text', 'word-count-report'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="The educational trip to the museum was conducted on..."></textarea>
-                    </div>
-                </div>
-
-                <!-- WRITING TASK 4: REVIEW -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 print-card">
-                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-sm font-bold">4</span>
-                            <h3 class="font-heading font-bold text-slate-800 text-base">Review Task: Local Cinema or Book</h3>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[11px] font-semibold px-2 py-0.5 bg-amber-50 text-amber-800 rounded border border-amber-200">15 Marks (9 Lang / 6 Cont)</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-100">Evaluative Register</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between items-center mb-1 text-xs">
-                            <label class="font-medium text-slate-700">Your Review Paragraph:</label>
-                            <span id="word-count-review" class="text-slate-400 font-mono">0 words</span>
-                        </div>
-                        <textarea id="write-review-text" oninput="updateWordCount('write-review-text', 'word-count-review'); updateWritingProgress();" rows="4" class="w-full text-xs p-3.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all" placeholder="The newly opened cinema complex, which features state-of-the-art screen technology..."></textarea>
-                    </div>
                 </div>
 
             </div>
@@ -934,131 +543,63 @@
                 
                 <div class="flex justify-between items-center flex-wrap gap-4 border-b border-slate-100 pb-4">
                     <div>
-                        <h2 class="font-heading font-bold text-xl text-slate-800">Worksheet Review & Tutor Submission</h2>
-                        <p class="text-xs text-slate-500">Fill in your student details, review your completed exercises, and export your clean document for your tutor.</p>
+                        <h2 class="font-heading font-bold text-xl text-slate-800">Worksheet Review & PDF Tutor Submission</h2>
+                        <p class="text-xs text-slate-500">Fill in your details below, preview your work, and click the print button to generate the formatted PDF document.</p>
                     </div>
                     
-                    <button onclick="triggerPrintProcess()" class="no-print bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center gap-2">
+                    <button onclick="triggerPrintProcess()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-6 py-3 rounded-xl transition-all shadow-md flex items-center gap-2">
                         <i class="fa-solid fa-print text-base"></i>
-                        <span>Print / Save as PDF for Tutor</span>
+                        <span>Print / Save Formatted 4-Page PDF</span>
                     </button>
                 </div>
 
-                <!-- Student Details Input Form (Interactive) -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 space-y-4">
+                <!-- Student Details Input Form -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                     <h3 class="font-heading font-bold text-sm text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-user-pen text-indigo-600"></i> Student & Session Meta Data
+                        <i class="fa-solid fa-user-pen text-indigo-600"></i> Student & Tutor Meta Data
                     </h3>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                         <div>
                             <label class="block font-medium text-slate-700 mb-1">Student Full Name:</label>
-                            <input type="text" id="student-name" oninput="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Sarah Mansour">
+                            <input type="text" id="student-name" oninput="updatePrintData()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Sarah Mansour">
                         </div>
                         <div>
                             <label class="block font-medium text-slate-700 mb-1">Tutor Name:</label>
-                            <input type="text" id="tutor-name" oninput="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Amanullah Khan">
+                            <input type="text" id="tutor-name" oninput="updatePrintData()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" value="Amanullah Khan">
                         </div>
                         <div>
                             <label class="block font-medium text-slate-700 mb-1">Session Date:</label>
-                            <input type="date" id="session-date" onchange="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <input type="date" id="session-date" onchange="updatePrintData()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                         <div>
                             <label class="block font-medium text-slate-700 mb-1">Self-Assessment Confidence Rating:</label>
-                            <select id="self-rating" onchange="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <select id="self-rating" onchange="updatePrintData()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
                                 <option value="⭐⭐⭐⭐⭐ (5/5) - Highly Confident">⭐⭐⭐⭐⭐ (5/5) - Mastered all structures</option>
                                 <option value="⭐⭐⭐⭐ (4/5) - Confident">⭐⭐⭐⭐ (4/5) - Good control over conditionals & tenses</option>
-                                <option value="⭐⭐⭐ (3/3) - Moderate">⭐⭐⭐ (3/5) - Need slight review on 3rd conditional/participles</option>
+                                <option value="⭐⭐⭐ (3/5) - Moderate">⭐⭐⭐ (3/5) - Need slight review on 3rd conditional/participles</option>
                                 <option value="⭐⭐ (2/5) - Needs Practice">⭐⭐ (2/5) - Struggled with complex sentence variety</option>
                             </select>
                         </div>
                         <div>
                             <label class="block font-medium text-slate-700 mb-1">Student Reflection / Questions for Tutor:</label>
-                            <input type="text" id="student-notes" oninput="updatePrintHeader()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. I felt confident with emails, but need more help on formal report passives.">
+                            <input type="text" id="student-notes" oninput="updatePrintData()" class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Felt great about emails, but need more work on formal report passives.">
                         </div>
                     </div>
                 </div>
 
-                <!-- Printable Summary Header (Appears in Print View) -->
-                <div class="print-only border-2 border-slate-800 p-4 rounded-xl space-y-2 mb-6">
-                    <div class="flex justify-between items-start border-b border-slate-300 pb-2">
-                        <div>
-                            <h1 class="text-xl font-bold">IGCSE ESL Sentence Masterclass - Student Submission Worksheet</h1>
-                            <p class="text-xs text-slate-600 font-medium">Created by Amanullah Khan • Tel: +966568959394 • www.smartstudygrid.com</p>
-                        </div>
-                        <span class="text-sm font-semibold bg-slate-100 px-2.5 py-1 rounded border border-slate-300">Grade 10 ESL</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <p><strong>Student Name:</strong> <span id="print-student-name">Sarah Mansour</span></p>
-                        <p><strong>Tutor Name:</strong> <span id="print-tutor-name">Amanullah Khan</span></p>
-                        <p><strong>Date:</strong> <span id="print-date">August 2026</span></p>
-                        <p><strong>Confidence Rating:</strong> <span id="print-rating">5/5</span></p>
-                    </div>
-                    <p class="text-xs"><strong>Student Notes for Tutor:</strong> <span id="print-notes">None</span></p>
-                </div>
-
-                <!-- Tutor Assessment Grid (For Print/PDF Grading) -->
-                <div class="print-only border border-slate-400 p-4 rounded-xl space-y-2 mb-6 bg-slate-50">
-                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-1">
-                        Tutor Assessment & Scorecard (15 Marks Per Writing Task)
-                    </h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-[11px] border-collapse border border-slate-300 text-center">
-                            <thead>
-                                <tr class="bg-slate-200 font-bold text-slate-800">
-                                    <th class="border border-slate-300 p-1.5 text-left">Writing Genre Task</th>
-                                    <th class="border border-slate-300 p-1.5 w-24">Language (/9)</th>
-                                    <th class="border border-slate-300 p-1.5 w-24">Content (/6)</th>
-                                    <th class="border border-slate-300 p-1.5 w-24">Total (/15)</th>
-                                    <th class="border border-slate-300 p-1.5 text-left">Tutor Feedback / Focus Areas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">1. Informal Email</td>
-                                    <td class="border border-slate-300 p-1.5">/9</td>
-                                    <td class="border border-slate-300 p-1.5">/6</td>
-                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
-                                    <td class="border border-slate-300 p-1.5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">2. School Article</td>
-                                    <td class="border border-slate-300 p-1.5">/9</td>
-                                    <td class="border border-slate-300 p-1.5">/6</td>
-                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
-                                    <td class="border border-slate-300 p-1.5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">3. Formal Report</td>
-                                    <td class="border border-slate-300 p-1.5">/9</td>
-                                    <td class="border border-slate-300 p-1.5">/6</td>
-                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
-                                    <td class="border border-slate-300 p-1.5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="border border-slate-300 p-1.5 text-left font-semibold">4. Review Task</td>
-                                    <td class="border border-slate-300 p-1.5">/9</td>
-                                    <td class="border border-slate-300 p-1.5">/6</td>
-                                    <td class="border border-slate-300 p-1.5 font-bold">/15</td>
-                                    <td class="border border-slate-300 p-1.5"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Live Worksheet Summary Preview -->
+                <!-- Web Interactive Summary Preview -->
                 <div class="space-y-4">
                     <h3 class="font-heading font-bold text-slate-800 text-sm flex items-center justify-between">
-                        <span>Worksheet Response Review</span>
-                        <span id="completion-badge" class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-normal">Progress: 0%</span>
+                        <span>Live Response Preview</span>
+                        <span id="summary-progress-badge" class="text-xs bg-indigo-100 text-indigo-800 px-2.5 py-0.5 rounded-full">Completed: 0/12 Tasks</span>
                     </h3>
 
-                    <div id="submission-preview-list" class="space-y-4 text-xs">
-                        <!-- Populated dynamically via JS -->
+                    <div id="submission-preview-list" class="space-y-3 text-xs">
+                        <!-- Populated via JS -->
                     </div>
                 </div>
 
@@ -1067,7 +608,164 @@
 
     </main>
 
-    <!-- Footer with Author Credits -->
+    <!-- ================= PRINT/PDF ONLY MULTI-PAGE STRUCTURE ================= -->
+    <!-- Page 1: Blueprint & Meta -->
+    <!-- Page 2: Situation Drills -->
+    <!-- Page 3 & 4: Genre Writing Tasks & Evaluation -->
+    <div class="print-only">
+        
+        <!-- PAGE 1: Header, Meta Data & Grammar Blueprint -->
+        <div class="pdf-page space-y-4">
+            <div class="border-b-2 border-slate-800 pb-3 flex justify-between items-start">
+                <div>
+                    <h1 class="text-xl font-bold font-heading">IGCSE ESL Sentence Masterclass - Student Submission Worksheet</h1>
+                    <p class="text-xs text-slate-600 font-medium">Author & Tutor: Amanullah Khan • Tel: +966568959394 • www.smartstudygrid.com</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs font-bold bg-slate-100 px-2 py-1 rounded border border-slate-300">Grade 10 ESL</span>
+                    <p class="text-[10px] text-slate-500 mt-1">Page 1 of 4</p>
+                </div>
+            </div>
+
+            <!-- Student Metadata Table -->
+            <div class="border border-slate-300 rounded-lg p-3 bg-slate-50 space-y-1.5 text-xs">
+                <h3 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Student Session Profile</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <p><strong>Student Name:</strong> <span id="pdf-student-name">Sarah Mansour</span></p>
+                    <p><strong>Tutor Name:</strong> <span id="pdf-tutor-name">Amanullah Khan</span></p>
+                    <p><strong>Date:</strong> <span id="pdf-date">August 2026</span></p>
+                    <p><strong>Self-Assessment:</strong> <span id="pdf-rating">5/5</span></p>
+                </div>
+                <p><strong>Notes / Feedback Request:</strong> <span id="pdf-notes">None</span></p>
+            </div>
+
+            <!-- Grammar Blueprint Summary -->
+            <div class="space-y-3 border border-slate-300 rounded-lg p-3">
+                <h3 class="font-bold text-slate-800 text-xs uppercase tracking-wider border-b border-slate-200 pb-1">
+                    Grammar Reference & Targets Checklist
+                </h3>
+                <table class="w-full text-[10px] text-left border-collapse border border-slate-200">
+                    <tr class="bg-slate-100 font-bold">
+                        <th class="p-1.5 border border-slate-200">Structure Type</th>
+                        <th class="p-1.5 border border-slate-200">Formula / Marker</th>
+                        <th class="p-1.5 border border-slate-200">Target Writing Task</th>
+                    </tr>
+                    <tr>
+                        <td class="p-1.5 border border-slate-200 font-semibold">1st Conditional</td>
+                        <td class="p-1.5 border border-slate-200">If + Present, Will + V1</td>
+                        <td class="p-1.5 border border-slate-200">Informal Emails & Invitations</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1.5 border border-slate-200 font-semibold">2nd Conditional</td>
+                        <td class="p-1.5 border border-slate-200">If + Past Simple, Would + V1</td>
+                        <td class="p-1.5 border border-slate-200">Reports / Recommendations</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1.5 border border-slate-200 font-semibold">3rd Conditional</td>
+                        <td class="p-1.5 border border-slate-200">If + Past Perf, Would Have + V3</td>
+                        <td class="p-1.5 border border-slate-200">Reviews & Past Regrets</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1.5 border border-slate-200 font-semibold">Participle Clause</td>
+                        <td class="p-1.5 border border-slate-200">Verb-ing / Having + V3</td>
+                        <td class="p-1.5 border border-slate-200">Articles & Narrative Hooks</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1.5 border border-slate-200 font-semibold">Passive Voice</td>
+                        <td class="p-1.5 border border-slate-200">It was observed that / Object + Was + V3</td>
+                        <td class="p-1.5 border border-slate-200">Formal Reports & Findings</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="text-[10px] text-slate-500 italic text-center pt-2">
+                Turn to Page 2 for completed Situation Drills.
+            </div>
+        </div>
+
+        <!-- PAGE 2: Situation Drills (Page 2 Requirement) -->
+        <div class="pdf-page space-y-3">
+            <div class="border-b border-slate-400 pb-2 flex justify-between items-center">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-800">Section 2: Situation Drills Worksheets (8 Tasks)</h2>
+                <span class="text-[10px] text-slate-500">Page 2 of 4</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-[10px]" id="pdf-drills-container">
+                <!-- 8 Situation Drills dynamically output here -->
+            </div>
+        </div>
+
+        <!-- PAGE 3: Genre Writing Tasks 1 & 2 (Page 3 Requirement) -->
+        <div class="pdf-page space-y-4">
+            <div class="border-b border-slate-400 pb-2 flex justify-between items-center">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-800">Section 3: Genre Writing Tasks (Part 1 - Tasks 1 & 2)</h2>
+                <span class="text-[10px] text-slate-500">Page 3 of 4</span>
+            </div>
+
+            <div class="space-y-4" id="pdf-genre-part1">
+                <!-- Task 1 & Task 2 output here -->
+            </div>
+        </div>
+
+        <!-- PAGE 4: Genre Writing Tasks 3 & 4 + Tutor Evaluation (Page 4 Requirement) -->
+        <div class="pdf-page space-y-4">
+            <div class="border-b border-slate-400 pb-2 flex justify-between items-center">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-800">Section 3: Genre Writing Tasks (Part 2 - Tasks 3 & 4) & Tutor Scorecard</h2>
+                <span class="text-[10px] text-slate-500">Page 4 of 4</span>
+            </div>
+
+            <div class="space-y-4" id="pdf-genre-part2">
+                <!-- Task 3 & Task 4 output here -->
+            </div>
+
+            <!-- Tutor Scorecard -->
+            <div class="border border-slate-400 p-3 rounded bg-slate-50 space-y-2 mt-4">
+                <h3 class="font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-1">
+                    Tutor Grading & Marking Scorecard (15 Marks Per Task: 9 Language / 6 Content)
+                </h3>
+                <table class="w-full text-[10px] border-collapse border border-slate-300 text-center">
+                    <tr class="bg-slate-200 font-bold">
+                        <td class="border border-slate-300 p-1 text-left">Task Genre</td>
+                        <td class="border border-slate-300 p-1 w-20">Language (/9)</td>
+                        <td class="border border-slate-300 p-1 w-20">Content (/6)</td>
+                        <td class="border border-slate-300 p-1 w-20">Total (/15)</td>
+                        <td class="border border-slate-300 p-1 text-left">Tutor Feedback Comments</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-300 p-1 text-left font-semibold">1. Informal Email</td>
+                        <td class="border border-slate-300 p-1">/9</td>
+                        <td class="border border-slate-300 p-1">/6</td>
+                        <td class="border border-slate-300 p-1 font-bold">/15</td>
+                        <td class="border border-slate-300 p-1"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-300 p-1 text-left font-semibold">2. School Article</td>
+                        <td class="border border-slate-300 p-1">/9</td>
+                        <td class="border border-slate-300 p-1">/6</td>
+                        <td class="border border-slate-300 p-1 font-bold">/15</td>
+                        <td class="border border-slate-300 p-1"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-300 p-1 text-left font-semibold">3. Formal Report</td>
+                        <td class="border border-slate-300 p-1">/9</td>
+                        <td class="border border-slate-300 p-1">/6</td>
+                        <td class="border border-slate-300 p-1 font-bold">/15</td>
+                        <td class="border border-slate-300 p-1"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-300 p-1 text-left font-semibold">4. Film/Book Review</td>
+                        <td class="border border-slate-300 p-1">/9</td>
+                        <td class="border border-slate-300 p-1">/6</td>
+                        <td class="border border-slate-300 p-1 font-bold">/15</td>
+                        <td class="border border-slate-300 p-1"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Web Footer -->
     <footer class="no-print bg-slate-900 border-t border-slate-800 text-slate-400 py-4 mt-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
             <div class="flex items-center gap-2">
@@ -1086,29 +784,207 @@
         </div>
     </footer>
 
-    <!-- JavaScript Application Logic -->
+    <!-- JavaScript Application State & Logic -->
     <script>
-        // Session State & Timer Logic
-        let timerSeconds = 90 * 60; // 90 minutes
+        // Data Structures for Drills and Genre Tasks
+        const DRILLS_DATA = [
+            {
+                id: 1,
+                genre: "Informal Email • Drill 1",
+                title: "Situation: Missed Meetup & Rescheduling",
+                grammarTag: "Past Simple + 2nd Conditional",
+                description: "Apologize to your friend for missing their birthday party last week due to an emergency, and invite them to visit you next weekend instead to celebrate.",
+                ideas: [
+                    "Explain the missed event using 'due to an unavoidable situation'.",
+                    "Offer an exciting alternative using 'If you came over next Saturday, we would...'."
+                ],
+                wordBank: ["unavoidable", "unfortunate", "reschedule", "weekend", "delighted"],
+                grammarTargets: [
+                    "1x Complex sentence using 'because' or 'due to'",
+                    "1x 2nd Conditional sentence (If + past simple, would + V1)"
+                ],
+                modelAnswer: "I was so sorry that I missed your birthday party due to an unavoidable family emergency. If you came over to my house next weekend to reschedule, I would be absolutely delighted to make it up to you!"
+            },
+            {
+                id: 2,
+                genre: "Informal Email • Drill 2",
+                title: "Situation: Recommending a New Hobby Club",
+                grammarTag: "Relative Clause + 1st Conditional",
+                description: "Write to a classmate recommending that they join the new school photography club with you after school.",
+                ideas: [
+                    "Describe the instructor using a defining/non-defining relative clause ('who has a passion...').",
+                    "Promise future benefit with 1st conditional ('If you join with me, your skills will...')."
+                ],
+                wordBank: ["passion", "instructor", "equipment", "exhibition", "improve"],
+                grammarTargets: [
+                    "1x Relative Clause using 'who' or 'which'",
+                    "1x 1st Conditional (If + present simple, will + V1)"
+                ],
+                modelAnswer: "Our new photography instructor, who has a real passion for teaching, provides amazing equipment. If you join the club with me, your camera skills will improve rapidly before the exhibition."
+            },
+            {
+                id: 3,
+                genre: "School Article • Drill 3",
+                title: "Situation: Smartphone Usage in Classrooms",
+                grammarTag: "Participle Clause + Zero Conditional",
+                description: "Write an opening for a school magazine article discussing how continuous notifications disrupt teenagers' focus during study time.",
+                ideas: [
+                    "Start with an active participle verb clause ('Facing continuous notifications, students...').",
+                    "State a universal study fact with Zero Conditional ('If students keep their phones on, study focus drops')."
+                ],
+                wordBank: ["distraction", "concentration", "constantly", "academic", "detrimental"],
+                grammarTargets: [
+                    "1x Participle Clause sentence starting with an -ing verb",
+                    "1x Zero Conditional (If + present simple, present simple)"
+                ],
+                modelAnswer: "Facing constantly buzzing notifications on their phones, students frequently suffer from a loss of deep concentration. If teenagers allow digital distraction during revision, their academic performance suffers."
+            },
+            {
+                id: 4,
+                genre: "School Article • Drill 4",
+                title: "Situation: Green Campus & Anti-Plastic Drive",
+                grammarTag: "Compound-Complex Sentence",
+                description: "Write a persuasive concluding paragraph urging your school to eliminate single-use plastics from the canteen.",
+                ideas: [
+                    "Acknowledge short-term effort but emphasize long-term goals using 'Although... , ... and...'",
+                    "Use a modal of strong recommendation ('should take immediate action')."
+                ],
+                wordBank: ["eliminate", "sustainability", "initiative", "canteen", "inspire"],
+                grammarTargets: [
+                    "1x Compound-Complex sentence using 'although' + 'and/but'",
+                    "Modal verb of recommendation ('should' or 'ought to')"
+                ],
+                modelAnswer: "Although replacing plastic containers in the canteen may require an initial budget, this eco-friendly initiative will promote sustainability, and our student council should take action to inspire everyone."
+            },
+            {
+                id: 5,
+                genre: "Formal Report • Drill 5",
+                title: "Situation: School Library Upgrade Assessment",
+                grammarTag: "Passive Voice + Purpose Clause",
+                description: "Report on the findings regarding outdated reference books and the lack of quiet study space in the school library.",
+                ideas: [
+                    "State findings objectively in passive form ('It was observed that reference books were outdated').",
+                    "State purpose using 'In order to provide quiet study space...'."
+                ],
+                wordBank: ["inspected", "outdated", "resources", "insufficient", "allocated"],
+                grammarTargets: [
+                    "1x Formal Passive Voice sentence ('It was noted that...')",
+                    "1x Subordinate clause of purpose ('in order to' / 'so that')"
+                ],
+                modelAnswer: "During the inspection, it was noted that several reference resources were highly outdated. In order to resolve this insufficient provision, additional funds must be allocated for digital upgrading."
+            },
+            {
+                id: 6,
+                genre: "Formal Report • Drill 6",
+                title: "Situation: Sports Facilities & Changing Rooms",
+                grammarTag: "Formal Complex + 2nd Conditional",
+                description: "Provide formal recommendations for modernizing the school changing rooms and outdoor football pitch.",
+                ideas: [
+                    "Contrast current state using 'While outdoor fields are adequate, changing rooms remain...'",
+                    "Propose formal recommendation ('If school authorities were to authorize renovation, participation would increase')."
+                ],
+                wordBank: ["renovation", "participation", "inadequate", "substantially", "recommend"],
+                grammarTargets: [
+                    "1x Complex sentence starting with 'While' or 'Whereas'",
+                    "1x Formal 2nd Conditional ('If management were to... would...')"
+                ],
+                modelAnswer: "While current outdoor pitches are well-maintained, indoor changing facilities remain strictly inadequate. If school authorities were to authorize an immediate renovation, student participation would increase substantially."
+            },
+            {
+                id: 7,
+                genre: "Restaurant Review • Drill 7",
+                title: "Situation: Dining Experience at a Local Cafe",
+                grammarTag: "3rd Conditional + Relative Clause",
+                description: "Review a new local Italian cafe where the food was exceptional, but service speed was disappointing.",
+                ideas: [
+                    "Describe the signature dish using non-defining relative clause (', which was served with fresh basil,').",
+                    "Express evaluative regret with 3rd conditional ('If staff had been faster, experience would have been flawless')."
+                ],
+                wordBank: ["atmosphere", "exquisite", "sluggish", "disappointing", "flawless"],
+                grammarTargets: [
+                    "1x Non-defining Relative Clause (', which ... ,')",
+                    "1x 3rd Conditional (If + past perfect, would have + V3)"
+                ],
+                modelAnswer: "The homemade pasta, which was served with fresh herbs, tasted absolutely exquisite in a vibrant atmosphere. However, if the sluggish staff had been faster, our dining experience would have been flawless."
+            },
+            {
+                id: 8,
+                genre: "Event Review • Drill 8",
+                title: "Situation: School Annual Drama Production",
+                grammarTag: "Past Perfect + Contrast Connective",
+                description: "Review a recent drama performance held at school, commending the actors despite minor sound glitches.",
+                ideas: [
+                    "Establish prior preparation with past perfect ('The drama club had rehearsed for months...').",
+                    "Highlight triumph despite setbacks ('Despite technical glitches, actors managed to...')."
+                ],
+                wordBank: ["anticipated", "technical", "glitch", "performance", "captivate"],
+                grammarTargets: [
+                    "1x Sentence with Past Perfect ('had + V3')",
+                    "1x Sentence starting with 'Despite + Noun/-ing'"
+                ],
+                modelAnswer: "The drama club had rehearsed for months for this eagerly anticipated play. Despite minor technical glitches with sound equipment, the lead actors managed to captivate the audience with an outstanding performance."
+            }
+        ];
+
+        const GENRE_DATA = [
+            {
+                id: 1,
+                genreTag: "Genre 1: Informal Email",
+                title: "Informal Email Task: Planning a Class Trip Itinerary",
+                targetCount: 60,
+                explanation: "You are writing a focused body paragraph (~60 words) to a classmate about an upcoming weekend class trip. Explain what exciting activities you have planned for Saturday afternoon, suggest what items they should pack, and ask for their opinion on dinner options.",
+                grammarTips: "Use informal connectors (Anyway, By the way), 1st or 2nd conditionals, and active casual voice."
+            },
+            {
+                id: 2,
+                genreTag: "Genre 2: School Magazine Article",
+                title: "School Article Task: Balancing Study & Mental Wellbeing",
+                targetCount: 60,
+                explanation: "Write a compelling body paragraph (~60 words) for a school article addressing exam stress. Describe why taking regular study breaks improves memory retention, and urge fellow students to adopt balanced routine habits before final assessments begin.",
+                grammarTips: "Use engaging rhetorical questions, participle clauses ('Having studied for hours...'), and 1st conditionals."
+            },
+            {
+                id: 3,
+                genreTag: "Genre 3: Formal Report",
+                title: "Formal Report Task: Evaluating Environmental Field Trip",
+                targetCount: 60,
+                explanation: "Write a formal findings body paragraph (~60 words) evaluating a recent biology field trip to a nature reserve. State what educational activities were completed, highlight transportation delays encountered, and recommend solutions for future trips.",
+                grammarTips: "Maintain formal passive voice ('It was reported that...', 'Observations were made'), avoiding informal pronouns."
+            },
+            {
+                id: 4,
+                genreTag: "Genre 4: Film / Event Review",
+                title: "Review Task: Evaluating a New Educational Documentary",
+                targetCount: 60,
+                explanation: "Write an evaluative body paragraph (~60 words) reviewing a science documentary shown at school. Praise the stunning visual cinematography and expert interviews, but criticize the lengthy runtime and slow pacing in the second half.",
+                grammarTips: "Use evaluative adjectives (exquisite, tedious, compelling), non-defining relative clauses, and 3rd conditionals."
+            }
+        ];
+
+        // State variables
+        let currentDrillIndex = 0;
+        let currentGenreIndex = 0;
+        let drillAnswers = Array(8).fill("");
+        let genreAnswers = Array(4).fill("");
+
+        let timerSeconds = 90 * 60;
         let timerInterval = null;
         let isTimerRunning = true;
 
         window.onload = function() {
-            // Initialize Date Field to Today
+            // Set default date
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('session-date').value = today;
 
-            // Start Session Countdown Timer
             startTimer();
-            
-            // Initial render of preview
-            renderSubmissionPreview();
+            renderCurrentDrill();
+            renderCurrentGenre();
             updateOverallProgress();
         };
 
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(function() {
+            timerInterval = setInterval(() => {
                 if (isTimerRunning && timerSeconds > 0) {
                     timerSeconds--;
                     updateTimerDisplay();
@@ -1118,34 +994,24 @@
 
         function toggleTimer() {
             isTimerRunning = !isTimerRunning;
-            const btn = document.getElementById('timer-toggle-btn');
-            btn.innerHTML = isTimerRunning ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
+            document.getElementById('timer-toggle-btn').innerHTML = isTimerRunning ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
         }
 
         function updateTimerDisplay() {
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            document.getElementById('session-timer').textContent = display;
+            const m = Math.floor(timerSeconds / 60);
+            const s = timerSeconds % 60;
+            document.getElementById('session-timer').textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
 
-        // Navigation Tab Switcher
         function switchToTab(tabId) {
-            // Hide all tab content
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(el => el.classList.add('hidden'));
-
-            // Show selected tab content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(tabId).classList.remove('hidden');
 
-            // Reset tab button states
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
                 btn.classList.add('text-slate-600', 'hover:text-indigo-600', 'hover:bg-slate-50');
             });
 
-            // Active button highlight
             const activeBtn = document.getElementById('btn-' + tabId);
             if (activeBtn) {
                 activeBtn.classList.remove('text-slate-600', 'hover:text-indigo-600', 'hover:bg-slate-50');
@@ -1153,139 +1019,314 @@
             }
 
             if (tabId === 'tab-submission') {
+                updatePrintData();
                 renderSubmissionPreview();
             }
         }
 
-        // Toggle Model Answers in Drills
-        function toggleModelAnswer(elementId) {
-            const el = document.getElementById(elementId);
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
+        // ================= DRILL LOGIC =================
+        function selectDrill(indexOneBased) {
+            currentDrillIndex = indexOneBased - 1;
+            renderCurrentDrill();
+        }
+
+        function navigateDrill(step) {
+            const nextIdx = currentDrillIndex + step;
+            if (nextIdx >= 0 && nextIdx < 8) {
+                currentDrillIndex = nextIdx;
+                renderCurrentDrill();
             }
         }
 
-        // Live Word Counter
-        function updateWordCount(textareaId, displayId) {
-            const text = document.getElementById(textareaId).value.trim();
+        function renderCurrentDrill() {
+            const d = DRILLS_DATA[currentDrillIndex];
+
+            // Update Header & Context
+            document.getElementById('drill-genre-tag').textContent = d.genre;
+            document.getElementById('drill-title').textContent = d.title;
+            document.getElementById('drill-target-grammar').textContent = `Target: ${d.grammarTag}`;
+            document.getElementById('drill-description').textContent = d.description;
+
+            // Render Ideas List
+            const ideasList = document.getElementById('drill-ideas-list');
+            ideasList.innerHTML = d.ideas.map(i => `<li>${i}</li>`).join('');
+
+            // Render Word Bank
+            const wb = document.getElementById('drill-word-bank');
+            wb.innerHTML = d.wordBank.map(w => `<span class="text-[11px] bg-slate-100 border border-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">${w}</span>`).join('');
+
+            // Render Grammar Checklist
+            const gc = document.getElementById('drill-grammar-list');
+            gc.innerHTML = d.grammarTargets.map(g => `<li>${g}</li>`).join('');
+
+            // Model Answer Text
+            document.getElementById('drill-model-text').textContent = `"${d.modelAnswer}"`;
+            document.getElementById('drill-model-box').classList.add('hidden');
+
+            // Text Area Input
+            const textarea = document.getElementById('drill-input-area');
+            textarea.value = drillAnswers[currentDrillIndex];
+            updateDrillWordCount();
+
+            // Update Sidebar Button Styles
+            updateDrillSidebarUI();
+        }
+
+        function handleDrillInput() {
+            const text = document.getElementById('drill-input-area').value;
+            drillAnswers[currentDrillIndex] = text;
+            updateDrillWordCount();
+            updateDrillSidebarUI();
+            updateOverallProgress();
+        }
+
+        function updateDrillWordCount() {
+            const text = drillAnswers[currentDrillIndex].trim();
+            const count = text ? text.split(/\s+/).length : 0;
+            document.getElementById('drill-word-count').textContent = `${count} words`;
+        }
+
+        function toggleCurrentModelAnswer() {
+            const box = document.getElementById('drill-model-box');
+            box.classList.toggle('hidden');
+        }
+
+        function updateDrillSidebarUI() {
+            let completedCount = 0;
+            for (let i = 0; i < 8; i++) {
+                const isComplete = drillAnswers[i].trim().length >= 15;
+                if (isComplete) completedCount++;
+
+                const btn = document.getElementById(`drill-btn-${i+1}`);
+                const icon = document.getElementById(`drill-icon-${i+1}`);
+
+                if (i === currentDrillIndex) {
+                    btn.className = `drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
+                        isComplete ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-slate-800 text-white border-slate-800'
+                    }`;
+                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
+                } else {
+                    btn.className = `drill-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
+                        isComplete ? 'bg-blue-600 text-white border-blue-600 font-semibold' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                    }`;
+                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
+                }
+            }
+            document.getElementById('drill-counter-badge').textContent = `Completed: ${completedCount} / 8 Drills`;
+        }
+
+
+        // ================= GENRE LOGIC =================
+        function selectGenreTask(indexOneBased) {
+            currentGenreIndex = indexOneBased - 1;
+            renderCurrentGenre();
+        }
+
+        function navigateGenre(step) {
+            const nextIdx = currentGenreIndex + step;
+            if (nextIdx >= 0 && nextIdx < 4) {
+                currentGenreIndex = nextIdx;
+                renderCurrentGenre();
+            }
+        }
+
+        function renderCurrentGenre() {
+            const g = GENRE_DATA[currentGenreIndex];
+
+            document.getElementById('genre-type-badge').textContent = g.genreTag;
+            document.getElementById('genre-task-title').textContent = g.title;
+            document.getElementById('genre-word-target-badge').textContent = `Target: ~${g.targetCount} Words`;
+            document.getElementById('genre-explanation-text').textContent = g.explanation;
+            document.getElementById('genre-grammar-tips').textContent = g.grammarTips;
+
+            const textarea = document.getElementById('genre-input-area');
+            textarea.value = genreAnswers[currentGenreIndex];
+
+            updateGenreWordCount();
+            updateGenreSidebarUI();
+        }
+
+        function handleGenreInput() {
+            const text = document.getElementById('genre-input-area').value;
+            genreAnswers[currentGenreIndex] = text;
+            updateGenreWordCount();
+            updateGenreSidebarUI();
+            updateOverallProgress();
+        }
+
+        function updateGenreWordCount() {
+            const text = genreAnswers[currentGenreIndex].trim();
             const words = text ? text.split(/\s+/).length : 0;
-            document.getElementById(displayId).textContent = `${words} words`;
+            const target = GENRE_DATA[currentGenreIndex].targetCount;
+            document.getElementById('genre-live-count').textContent = `${words} / ${target} words`;
         }
 
-        // Drill Progress Tracking
-        function updateDrillProgress() {
-            updateOverallProgress();
-        }
+        function updateGenreSidebarUI() {
+            let completedCount = 0;
+            for (let i = 0; i < 4; i++) {
+                const isComplete = genreAnswers[i].trim().length >= 25;
+                if (isComplete) completedCount++;
 
-        function updateWritingProgress() {
-            updateOverallProgress();
+                const btn = document.getElementById(`genre-btn-${i+1}`);
+                const icon = document.getElementById(`genre-icon-${i+1}`);
+
+                if (i === currentGenreIndex) {
+                    btn.className = `genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
+                        isComplete ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-slate-800 text-white border-slate-800'
+                    }`;
+                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
+                } else {
+                    btn.className = `genre-nav-btn w-full text-left px-3 py-2.5 rounded-lg text-xs font-medium flex items-center justify-between border transition-all ${
+                        isComplete ? 'bg-blue-600 text-white border-blue-600 font-semibold' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                    }`;
+                    icon.className = isComplete ? 'fa-solid fa-circle-check text-white' : 'fa-regular fa-circle text-slate-400';
+                }
+            }
+            document.getElementById('genre-counter-badge').textContent = `Completed: ${completedCount} / 4 Tasks`;
         }
 
         function updateOverallProgress() {
-            let totalItems = 12; // 8 drills + 4 writing tasks
-            let completedItems = 0;
+            let doneCount = 0;
+            drillAnswers.forEach(ans => { if (ans.trim().length >= 15) doneCount++; });
+            genreAnswers.forEach(ans => { if (ans.trim().length >= 25) doneCount++; });
 
-            for (let i = 1; i <= 8; i++) {
-                const val = document.getElementById(`drill-${i}-text`).value.trim();
-                if (val.length > 15) completedItems++;
-            }
-
-            const eText = document.getElementById('write-email-text').value.trim();
-            const aText = document.getElementById('write-article-text').value.trim();
-            const rText = document.getElementById('write-report-text').value.trim();
-            const revText = document.getElementById('write-review-text').value.trim();
-
-            if (eText.length > 20) completedItems++;
-            if (aText.length > 20) completedItems++;
-            if (rText.length > 20) completedItems++;
-            if (revText.length > 20) completedItems++;
-
-            const percentage = Math.round((completedItems / totalItems) * 100);
+            const percentage = Math.round((doneCount / 12) * 100);
             document.getElementById('overall-progress').style.width = percentage + '%';
-            
-            const badge = document.getElementById('completion-badge');
-            if (badge) {
-                badge.textContent = `Progress: ${percentage}% (${completedItems}/${totalItems} Done)`;
-            }
+
+            const summaryBadge = document.getElementById('summary-progress-badge');
+            if (summaryBadge) summaryBadge.textContent = `Completed: ${doneCount} / 12 Tasks (${percentage}%)`;
         }
 
-        // Submission & Print Preview Generator
-        function renderSubmissionPreview() {
-            const container = document.getElementById('submission-preview-list');
-            container.innerHTML = '';
-
-            // Section 2: Drills
-            const drillHeader = document.createElement('div');
-            drillHeader.className = "font-bold text-slate-800 text-sm border-b border-slate-200 pb-1 mt-2";
-            drillHeader.innerHTML = "<i class='fa-solid fa-bolt text-indigo-600 mr-1'></i> Section 2: Situation Drills Responses";
-            container.appendChild(drillHeader);
-
-            const drillTitles = [
-                "Drill 1 (Email - Past Simple & 2nd Conditional)",
-                "Drill 2 (Email - Relative Clause & 1st Conditional)",
-                "Drill 3 (Article - Participle Clause & Zero Conditional)",
-                "Drill 4 (Article - Compound-Complex Sentence)",
-                "Drill 5 (Report - Passive Voice & Purpose Clause)",
-                "Drill 6 (Report - Formal Complex & 2nd Conditional)",
-                "Drill 7 (Review - 3rd Conditional & Relative Clause)",
-                "Drill 8 (Review - Past Perfect & Contrast)"
-            ];
-
-            for (let i = 1; i <= 8; i++) {
-                const val = document.getElementById(`drill-${i}-text`).value.trim() || "(No response written yet)";
-                
-                const card = document.createElement('div');
-                card.className = "p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1 print-card";
-                card.innerHTML = `
-                    <div class="font-semibold text-indigo-700 text-xs">${drillTitles[i-1]}</div>
-                    <p class="text-slate-700 italic">${escapeHtml(val)}</p>
-                `;
-                container.appendChild(card);
-            }
-
-            // Section 3: Writing Prompts
-            const writingHeader = document.createElement('div');
-            writingHeader.className = "font-bold text-slate-800 text-sm border-b border-slate-200 pb-1 mt-4";
-            writingHeader.innerHTML = "<i class='fa-solid fa-pen-nib text-indigo-600 mr-1'></i> Section 3: Genre Writing Tasks";
-            container.appendChild(writingHeader);
-
-            const writingTasks = [
-                { id: 'write-email-text', title: 'Task 1: Informal Email Paragraph' },
-                { id: 'write-article-text', title: 'Task 2: Magazine Article Paragraph' },
-                { id: 'write-report-text', title: 'Task 3: Formal Report Paragraph' },
-                { id: 'write-review-text', title: 'Task 4: Review Paragraph' }
-            ];
-
-            writingTasks.forEach(task => {
-                const val = document.getElementById(task.id).value.trim() || "(No response written yet)";
-                const card = document.createElement('div');
-                card.className = "p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1 print-card";
-                card.innerHTML = `
-                    <div class="font-semibold text-purple-700 text-xs">${task.title}</div>
-                    <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(val)}</p>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function updatePrintHeader() {
+        // ================= SUBMISSION & PRINT PREVIEW LOGIC =================
+        function updatePrintData() {
             const sName = document.getElementById('student-name').value.trim() || "Sarah Mansour";
-            const tName = document.getElementById('tutor-name').value.trim() || "Not Specified";
-            const dDate = document.getElementById('session-date').value || "Today";
+            const tName = document.getElementById('tutor-name').value.trim() || "Amanullah Khan";
+            const dDate = document.getElementById('session-date').value || "August 2026";
             const rating = document.getElementById('self-rating').value;
             const notes = document.getElementById('student-notes').value.trim() || "None provided.";
 
-            document.getElementById('print-student-name').textContent = sName;
-            document.getElementById('print-tutor-name').textContent = tName;
-            document.getElementById('print-date').textContent = dDate;
-            document.getElementById('print-rating').textContent = rating;
-            document.getElementById('print-notes').textContent = notes;
+            document.getElementById('pdf-student-name').textContent = sName;
+            document.getElementById('pdf-tutor-name').textContent = tName;
+            document.getElementById('pdf-date').textContent = dDate;
+            document.getElementById('pdf-rating').textContent = rating;
+            document.getElementById('pdf-notes').textContent = notes;
+        }
+
+        function renderSubmissionPreview() {
+            // Web view live summary list
+            const webContainer = document.getElementById('submission-preview-list');
+            webContainer.innerHTML = '';
+
+            // Section 2 Drills Preview
+            const dHeader = document.createElement('div');
+            dHeader.className = "font-bold text-slate-800 text-xs border-b border-slate-200 pb-1 mt-2";
+            dHeader.innerHTML = "<i class='fa-solid fa-bolt text-indigo-600 mr-1'></i> Section 2: Situation Drills Answers";
+            webContainer.appendChild(dHeader);
+
+            DRILLS_DATA.forEach((d, idx) => {
+                const ans = drillAnswers[idx].trim() || "(No response written yet)";
+                const card = document.createElement('div');
+                card.className = "p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1";
+                card.innerHTML = `
+                    <div class="font-semibold text-indigo-700 text-xs">${d.genre}</div>
+                    <p class="text-slate-700 italic">${escapeHtml(ans)}</p>
+                `;
+                webContainer.appendChild(card);
+            });
+
+            // Section 3 Genre Preview
+            const gHeader = document.createElement('div');
+            gHeader.className = "font-bold text-slate-800 text-xs border-b border-slate-200 pb-1 mt-3";
+            gHeader.innerHTML = "<i class='fa-solid fa-pen-nib text-indigo-600 mr-1'></i> Section 3: Genre Writing Tasks";
+            webContainer.appendChild(gHeader);
+
+            GENRE_DATA.forEach((g, idx) => {
+                const ans = genreAnswers[idx].trim() || "(No response written yet)";
+                const words = ans ? ans.split(/\s+/).length : 0;
+                const card = document.createElement('div');
+                card.className = "p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-purple-700 text-xs">${g.genreTag}</span>
+                        <span class="text-[10px] text-slate-500 font-mono">${words} / 60 words</span>
+                    </div>
+                    <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(ans)}</p>
+                `;
+                webContainer.appendChild(card);
+            });
+
+            // Populate PDF Elements (Page 2, 3, 4)
+            populatePdfPages();
+        }
+
+        function populatePdfPages() {
+            // Page 2: Situation Drills (8 Drills formatted neatly in PDF grid)
+            const pdfDrillsContainer = document.getElementById('pdf-drills-container');
+            pdfDrillsContainer.innerHTML = '';
+
+            DRILLS_DATA.forEach((d, idx) => {
+                const ans = drillAnswers[idx].trim() || "__________________________________________________";
+                const card = document.createElement('div');
+                card.className = "border border-slate-300 p-2 rounded bg-slate-50/50 space-y-1";
+                card.innerHTML = `
+                    <div class="font-bold text-slate-800 border-b border-slate-200 pb-0.5">${d.genre}</div>
+                    <p class="text-[9px] text-slate-500"><strong>Target:</strong> ${d.grammarTag}</p>
+                    <p class="text-[10px] italic text-slate-800 leading-tight">"${escapeHtml(ans)}"</p>
+                `;
+                pdfDrillsContainer.appendChild(card);
+            });
+
+            // Page 3: Genre Tasks 1 & 2
+            const pdfGenrePart1 = document.getElementById('pdf-genre-part1');
+            pdfGenrePart1.innerHTML = '';
+
+            [0, 1].forEach(idx => {
+                const g = GENRE_DATA[idx];
+                const ans = genreAnswers[idx].trim() || "____________________________________________________________________________________";
+                const words = ans ? ans.split(/\s+/).length : 0;
+
+                const box = document.createElement('div');
+                box.className = "border border-slate-300 p-3 rounded-lg bg-slate-50/50 space-y-2";
+                box.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-300 pb-1">
+                        <span class="font-bold text-slate-800 text-xs">${g.genreTag}: ${g.title}</span>
+                        <span class="text-[10px] font-mono">Word Count: ${words} / 60</span>
+                    </div>
+                    <p class="text-[10px] text-slate-600"><strong>Prompt Context:</strong> ${g.explanation}</p>
+                    <div class="border border-slate-300 bg-white p-2.5 rounded text-[11px] leading-relaxed italic">
+                        "${escapeHtml(ans)}"
+                    </div>
+                `;
+                pdfGenrePart1.appendChild(box);
+            });
+
+            // Page 4: Genre Tasks 3 & 4
+            const pdfGenrePart2 = document.getElementById('pdf-genre-part2');
+            pdfGenrePart2.innerHTML = '';
+
+            [2, 3].forEach(idx => {
+                const g = GENRE_DATA[idx];
+                const ans = genreAnswers[idx].trim() || "____________________________________________________________________________________";
+                const words = ans ? ans.split(/\s+/).length : 0;
+
+                const box = document.createElement('div');
+                box.className = "border border-slate-300 p-3 rounded-lg bg-slate-50/50 space-y-2";
+                box.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-300 pb-1">
+                        <span class="font-bold text-slate-800 text-xs">${g.genreTag}: ${g.title}</span>
+                        <span class="text-[10px] font-mono">Word Count: ${words} / 60</span>
+                    </div>
+                    <p class="text-[10px] text-slate-600"><strong>Prompt Context:</strong> ${g.explanation}</p>
+                    <div class="border border-slate-300 bg-white p-2.5 rounded text-[11px] leading-relaxed italic">
+                        "${escapeHtml(ans)}"
+                    </div>
+                `;
+                pdfGenrePart2.appendChild(box);
+            });
         }
 
         function triggerPrintProcess() {
-            updatePrintHeader();
+            updatePrintData();
             renderSubmissionPreview();
             window.print();
         }
